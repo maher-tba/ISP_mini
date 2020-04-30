@@ -1,13 +1,13 @@
 /*!
- * AdminLTE v3.0.0-rc.1 (https://adminlte.io)
- * Copyright 2014-2019 Colorlib <http://colorlib.com>
- * Licensed under MIT (https://github.com/almasaeed2010/AdminLTE/blob/master/LICENSE)
+ * AdminLTE v3.0.4 (https://adminlte.io)
+ * Copyright 2014-2020 Colorlib <http://colorlib.com>
+ * Licensed under MIT (https://github.com/ColorlibHQ/AdminLTE/blob/master/LICENSE)
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
   (global = global || self, factory(global.adminlte = {}));
-}(this, function (exports) { 'use strict';
+}(this, (function (exports) { 'use strict';
 
   /**
    * --------------------------------------------
@@ -52,10 +52,17 @@
       FOOTER_LG_FIXED: 'layout-lg-footer-fixed',
       FOOTER_XL_FIXED: 'layout-xl-footer-fixed'
     };
+    var Default = {
+      controlsidebarSlide: true,
+      scrollbarTheme: 'os-theme-light',
+      scrollbarAutoHide: 'l'
+    };
+    /**
+     * Class Definition
+     * ====================================================
+     */
 
-    var ControlSidebar =
-    /*#__PURE__*/
-    function () {
+    var ControlSidebar = /*#__PURE__*/function () {
       function ControlSidebar(element, config) {
         this._element = element;
         this._config = config;
@@ -66,7 +73,7 @@
 
       var _proto = ControlSidebar.prototype;
 
-      _proto.show = function show() {
+      _proto.collapse = function collapse() {
         // Show the control sidebar
         if (this._config.controlsidebarSlide) {
           $('html').addClass(ClassName.CONTROL_SIDEBAR_ANIMATE);
@@ -79,11 +86,11 @@
           $('body').removeClass(ClassName.CONTROL_SIDEBAR_OPEN);
         }
 
-        var expandedEvent = $.Event(Event.EXPANDED);
-        $(this._element).trigger(expandedEvent);
+        var collapsedEvent = $.Event(Event.COLLAPSED);
+        $(this._element).trigger(collapsedEvent);
       };
 
-      _proto.collapse = function collapse() {
+      _proto.show = function show() {
         // Collapse the control sidebar
         if (this._config.controlsidebarSlide) {
           $('html').addClass(ClassName.CONTROL_SIDEBAR_ANIMATE);
@@ -98,19 +105,19 @@
           $('body').addClass(ClassName.CONTROL_SIDEBAR_OPEN);
         }
 
-        var collapsedEvent = $.Event(Event.COLLAPSED);
-        $(this._element).trigger(collapsedEvent);
+        var expandedEvent = $.Event(Event.EXPANDED);
+        $(this._element).trigger(expandedEvent);
       };
 
       _proto.toggle = function toggle() {
-        var shouldOpen = $('body').hasClass(ClassName.CONTROL_SIDEBAR_OPEN) || $('body').hasClass(ClassName.CONTROL_SIDEBAR_SLIDE);
+        var shouldClose = $('body').hasClass(ClassName.CONTROL_SIDEBAR_OPEN) || $('body').hasClass(ClassName.CONTROL_SIDEBAR_SLIDE);
 
-        if (shouldOpen) {
-          // Open the control sidebar
-          this.show();
-        } else {
+        if (shouldClose) {
           // Close the control sidebar
           this.collapse();
+        } else {
+          // Open the control sidebar
+          this.show();
         }
       } // Private
       ;
@@ -226,8 +233,10 @@
         return this.each(function () {
           var data = $(this).data(DATA_KEY);
 
+          var _options = $.extend({}, Default, $(this).data());
+
           if (!data) {
-            data = new ControlSidebar(this, $(this).data());
+            data = new ControlSidebar(this, _options);
             $(this).data(DATA_KEY, data);
           }
 
@@ -292,8 +301,13 @@
       CONTENT_HEADER: '.content-header',
       WRAPPER: '.wrapper',
       CONTROL_SIDEBAR: '.control-sidebar',
+      CONTROL_SIDEBAR_CONTENT: '.control-sidebar-content',
+      CONTROL_SIDEBAR_BTN: '[data-widget="control-sidebar"]',
       LAYOUT_FIXED: '.layout-fixed',
-      FOOTER: '.main-footer'
+      FOOTER: '.main-footer',
+      PUSHMENU_BTN: '[data-widget="pushmenu"]',
+      LOGIN_BOX: '.login-box',
+      REGISTER_BOX: '.register-box'
     };
     var ClassName = {
       HOLD: 'hold-transition',
@@ -302,21 +316,24 @@
       SIDEBAR_FOCUSED: 'sidebar-focused',
       LAYOUT_FIXED: 'layout-fixed',
       NAVBAR_FIXED: 'layout-navbar-fixed',
-      FOOTER_FIXED: 'layout-footer-fixed'
+      FOOTER_FIXED: 'layout-footer-fixed',
+      LOGIN_PAGE: 'login-page',
+      REGISTER_PAGE: 'register-page',
+      CONTROL_SIDEBAR_SLIDE_OPEN: 'control-sidebar-slide-open',
+      CONTROL_SIDEBAR_OPEN: 'control-sidebar-open'
     };
     var Default = {
       scrollbarTheme: 'os-theme-light',
-      scrollbarAutoHide: 'l'
-      /**
-       * Class Definition
-       * ====================================================
-       */
-
+      scrollbarAutoHide: 'l',
+      panelAutoHeight: true,
+      loginRegisterAutoHeight: true
     };
+    /**
+     * Class Definition
+     * ====================================================
+     */
 
-    var Layout =
-    /*#__PURE__*/
-    function () {
+    var Layout = /*#__PURE__*/function () {
       function Layout(element, config) {
         this._config = config;
         this._element = element;
@@ -327,18 +344,47 @@
 
       var _proto = Layout.prototype;
 
-      _proto.fixLayoutHeight = function fixLayoutHeight() {
+      _proto.fixLayoutHeight = function fixLayoutHeight(extra) {
+        if (extra === void 0) {
+          extra = null;
+        }
+
+        var control_sidebar = 0;
+
+        if ($('body').hasClass(ClassName.CONTROL_SIDEBAR_SLIDE_OPEN) || $('body').hasClass(ClassName.CONTROL_SIDEBAR_OPEN) || extra == 'control_sidebar') {
+          control_sidebar = $(Selector.CONTROL_SIDEBAR_CONTENT).height();
+        }
+
         var heights = {
           window: $(window).height(),
-          header: $(Selector.HEADER).outerHeight(),
-          footer: $(Selector.FOOTER).outerHeight(),
-          sidebar: $(Selector.SIDEBAR).height()
+          header: $(Selector.HEADER).length !== 0 ? $(Selector.HEADER).outerHeight() : 0,
+          footer: $(Selector.FOOTER).length !== 0 ? $(Selector.FOOTER).outerHeight() : 0,
+          sidebar: $(Selector.SIDEBAR).length !== 0 ? $(Selector.SIDEBAR).height() : 0,
+          control_sidebar: control_sidebar
         };
 
         var max = this._max(heights);
 
+        var offset = this._config.panelAutoHeight;
+
+        if (offset === true) {
+          offset = 0;
+        }
+
+        if (offset !== false) {
+          if (max == heights.control_sidebar) {
+            $(Selector.CONTENT).css('min-height', max + offset);
+          } else if (max == heights.window) {
+            $(Selector.CONTENT).css('min-height', max + offset - heights.header - heights.footer);
+          } else {
+            $(Selector.CONTENT).css('min-height', max + offset - heights.header);
+          }
+        }
+
         if ($('body').hasClass(ClassName.LAYOUT_FIXED)) {
-          $(Selector.CONTENT).css('min-height', max - heights.header - heights.footer); // $(Selector.SIDEBAR).css('min-height', max - heights.header)
+          if (offset !== false) {
+            $(Selector.CONTENT).css('min-height', max + offset - heights.header - heights.footer);
+          }
 
           if (typeof $.fn.overlayScrollbars !== 'undefined') {
             $(Selector.SIDEBAR).overlayScrollbars({
@@ -350,11 +396,17 @@
               }
             });
           }
-        } else {
-          if (heights.window > heights.sidebar) {
-            $(Selector.CONTENT).css('min-height', heights.window - heights.header - heights.footer);
-          } else {
-            $(Selector.CONTENT).css('min-height', heights.sidebar - heights.header);
+        }
+      };
+
+      _proto.fixLoginRegisterHeight = function fixLoginRegisterHeight() {
+        if ($(Selector.LOGIN_BOX + ', ' + Selector.REGISTER_BOX).length === 0) {
+          $('body, html').css('height', 'auto');
+        } else if ($(Selector.LOGIN_BOX + ', ' + Selector.REGISTER_BOX).length !== 0) {
+          var box_height = $(Selector.LOGIN_BOX + ', ' + Selector.REGISTER_BOX).height();
+
+          if ($('body').css('min-height') !== box_height) {
+            $('body').css('min-height', box_height);
           }
         }
       } // Private
@@ -363,17 +415,30 @@
       _proto._init = function _init() {
         var _this = this;
 
-        // Enable transitions
-        $('body').removeClass(ClassName.HOLD); // Activate layout height watcher
-
+        // Activate layout height watcher
         this.fixLayoutHeight();
-        $(Selector.SIDEBAR).on('collapsed.lte.treeview expanded.lte.treeview collapsed.lte.pushmenu expanded.lte.pushmenu', function () {
+
+        if (this._config.loginRegisterAutoHeight === true) {
+          this.fixLoginRegisterHeight();
+        } else if (Number.isInteger(this._config.loginRegisterAutoHeight)) {
+          setInterval(this.fixLoginRegisterHeight, this._config.loginRegisterAutoHeight);
+        }
+
+        $(Selector.SIDEBAR).on('collapsed.lte.treeview expanded.lte.treeview', function () {
           _this.fixLayoutHeight();
+        });
+        $(Selector.PUSHMENU_BTN).on('collapsed.lte.pushmenu shown.lte.pushmenu', function () {
+          _this.fixLayoutHeight();
+        });
+        $(Selector.CONTROL_SIDEBAR_BTN).on('collapsed.lte.controlsidebar', function () {
+          _this.fixLayoutHeight();
+        }).on('expanded.lte.controlsidebar', function () {
+          _this.fixLayoutHeight('control_sidebar');
         });
         $(window).resize(function () {
           _this.fixLayoutHeight();
         });
-        $('body, html').css('height', 'auto');
+        $('body.hold-transition').removeClass('hold-transition');
       };
 
       _proto._max = function _max(numbers) {
@@ -389,17 +454,23 @@
       ;
 
       Layout._jQueryInterface = function _jQueryInterface(config) {
+        if (config === void 0) {
+          config = '';
+        }
+
         return this.each(function () {
           var data = $(this).data(DATA_KEY);
 
-          var _config = $.extend({}, Default, $(this).data());
+          var _options = $.extend({}, Default, $(this).data());
 
           if (!data) {
-            data = new Layout($(this), _config);
+            data = new Layout($(this), _options);
             $(this).data(DATA_KEY, data);
           }
 
-          if (config === 'init') {
+          if (config === 'init' || config === '') {
+            data['_init']();
+          } else if (config === 'fixLayoutHeight' || config === 'fixLoginRegisterHeight') {
             data[config]();
           }
         });
@@ -458,8 +529,7 @@
       SHOWN: "shown" + EVENT_KEY
     };
     var Default = {
-      autoCollapseSize: false,
-      screenCollapseSize: 768,
+      autoCollapseSize: 992,
       enableRemember: false,
       noTransitionAfterReload: true
     };
@@ -472,36 +542,38 @@
       WRAPPER: '.wrapper'
     };
     var ClassName = {
-      SIDEBAR_OPEN: 'sidebar-open',
       COLLAPSED: 'sidebar-collapse',
       OPEN: 'sidebar-open',
-      SIDEBAR_MINI: 'sidebar-mini'
-      /**
-       * Class Definition
-       * ====================================================
-       */
-
+      CLOSED: 'sidebar-closed'
     };
+    /**
+     * Class Definition
+     * ====================================================
+     */
 
-    var PushMenu =
-    /*#__PURE__*/
-    function () {
+    var PushMenu = /*#__PURE__*/function () {
       function PushMenu(element, options) {
         this._element = element;
         this._options = $.extend({}, Default, options);
 
-        this._init();
-
         if (!$(Selector.OVERLAY).length) {
           this._addOverlay();
         }
+
+        this._init();
       } // Public
 
 
       var _proto = PushMenu.prototype;
 
-      _proto.show = function show() {
-        $(Selector.BODY).addClass(ClassName.OPEN).removeClass(ClassName.COLLAPSED);
+      _proto.expand = function expand() {
+        if (this._options.autoCollapseSize) {
+          if ($(window).width() <= this._options.autoCollapseSize) {
+            $(Selector.BODY).addClass(ClassName.OPEN);
+          }
+        }
+
+        $(Selector.BODY).removeClass(ClassName.COLLAPSED).removeClass(ClassName.CLOSED);
 
         if (this._options.enableRemember) {
           localStorage.setItem("remember" + EVENT_KEY, ClassName.OPEN);
@@ -512,7 +584,13 @@
       };
 
       _proto.collapse = function collapse() {
-        $(Selector.BODY).removeClass(ClassName.OPEN).addClass(ClassName.COLLAPSED);
+        if (this._options.autoCollapseSize) {
+          if ($(window).width() <= this._options.autoCollapseSize) {
+            $(Selector.BODY).removeClass(ClassName.OPEN).addClass(ClassName.CLOSED);
+          }
+        }
+
+        $(Selector.BODY).addClass(ClassName.COLLAPSED);
 
         if (this._options.enableRemember) {
           localStorage.setItem("remember" + EVENT_KEY, ClassName.COLLAPSED);
@@ -522,31 +600,29 @@
         $(this._element).trigger(collapsedEvent);
       };
 
-      _proto.isShown = function isShown() {
-        if ($(window).width() >= this._options.screenCollapseSize) {
-          return !$(Selector.BODY).hasClass(ClassName.COLLAPSED);
-        } else {
-          return $(Selector.BODY).hasClass(ClassName.OPEN);
-        }
-      };
-
       _proto.toggle = function toggle() {
-        if (this.isShown()) {
+        if (!$(Selector.BODY).hasClass(ClassName.COLLAPSED)) {
           this.collapse();
         } else {
-          this.show();
+          this.expand();
         }
       };
 
-      _proto.autoCollapse = function autoCollapse() {
+      _proto.autoCollapse = function autoCollapse(resize) {
+        if (resize === void 0) {
+          resize = false;
+        }
+
         if (this._options.autoCollapseSize) {
           if ($(window).width() <= this._options.autoCollapseSize) {
-            if (this.isShown()) {
-              this.toggle();
+            if (!$(Selector.BODY).hasClass(ClassName.OPEN)) {
+              this.collapse();
             }
-          } else {
-            if (!this.isShown()) {
-              this.toggle();
+          } else if (resize == true) {
+            if ($(Selector.BODY).hasClass(ClassName.OPEN)) {
+              $(Selector.BODY).removeClass(ClassName.OPEN);
+            } else if ($(Selector.BODY).hasClass(ClassName.CLOSED)) {
+              this.expand();
             }
           }
         }
@@ -558,12 +634,21 @@
 
           if (toggleState == ClassName.COLLAPSED) {
             if (this._options.noTransitionAfterReload) {
-              $("body").addClass('hold-transition').addClass(ClassName.COLLAPSED).delay(10).queue(function () {
+              $("body").addClass('hold-transition').addClass(ClassName.COLLAPSED).delay(50).queue(function () {
                 $(this).removeClass('hold-transition');
                 $(this).dequeue();
               });
             } else {
               $("body").addClass(ClassName.COLLAPSED);
+            }
+          } else {
+            if (this._options.noTransitionAfterReload) {
+              $("body").addClass('hold-transition').removeClass(ClassName.COLLAPSED).delay(50).queue(function () {
+                $(this).removeClass('hold-transition');
+                $(this).dequeue();
+              });
+            } else {
+              $("body").removeClass(ClassName.COLLAPSED);
             }
           }
         }
@@ -576,7 +661,7 @@
         this.remember();
         this.autoCollapse();
         $(window).resize(function () {
-          _this.autoCollapse();
+          _this.autoCollapse(true);
         });
       };
 
@@ -604,7 +689,7 @@
             $(this).data(DATA_KEY, data);
           }
 
-          if (operation === 'toggle') {
+          if (typeof operation === 'string' && operation.match(/collapse|expand|toggle/)) {
             data[operation]();
           }
         });
@@ -679,22 +764,22 @@
       LI: 'nav-item',
       LINK: 'nav-link',
       TREEVIEW_MENU: 'nav-treeview',
-      OPEN: 'menu-open'
+      OPEN: 'menu-open',
+      SIDEBAR_COLLAPSED: 'sidebar-collapse'
     };
     var Default = {
       trigger: Selector.DATA_WIDGET + " " + Selector.LINK,
       animationSpeed: 300,
-      accordion: true
-      /**
-       * Class Definition
-       * ====================================================
-       */
-
+      accordion: true,
+      expandSidebar: false,
+      sidebarButtonSelector: '[data-widget="pushmenu"]'
     };
+    /**
+     * Class Definition
+     * ====================================================
+     */
 
-    var Treeview =
-    /*#__PURE__*/
-    function () {
+    var Treeview = /*#__PURE__*/function () {
       function Treeview(element, config) {
         this._config = config;
         this._element = element;
@@ -722,6 +807,10 @@
           parentLi.addClass(ClassName.OPEN);
           $(_this._element).trigger(expandedEvent);
         });
+
+        if (this._config.expandSidebar) {
+          this._expandSidebar();
+        }
       };
 
       _proto.collapse = function collapse(treeviewMenu, parentLi) {
@@ -738,10 +827,17 @@
 
       _proto.toggle = function toggle(event) {
         var $relativeTarget = $(event.currentTarget);
-        var treeviewMenu = $relativeTarget.next();
+        var $parent = $relativeTarget.parent();
+        var treeviewMenu = $parent.find('> ' + Selector.TREEVIEW_MENU);
 
         if (!treeviewMenu.is(Selector.TREEVIEW_MENU)) {
-          return;
+          if (!$parent.is(Selector.LI)) {
+            treeviewMenu = $parent.parent().find('> ' + Selector.TREEVIEW_MENU);
+          }
+
+          if (!treeviewMenu.is(Selector.TREEVIEW_MENU)) {
+            return;
+          }
         }
 
         event.preventDefault();
@@ -762,6 +858,12 @@
         $(document).on('click', this._config.trigger, function (event) {
           _this3.toggle(event);
         });
+      };
+
+      _proto._expandSidebar = function _expandSidebar() {
+        if ($('body').hasClass(ClassName.SIDEBAR_COLLAPSED)) {
+          $(this._config.sidebarButtonSelector).PushMenu('expand');
+        }
       } // Static
       ;
 
@@ -769,10 +871,10 @@
         return this.each(function () {
           var data = $(this).data(DATA_KEY);
 
-          var _config = $.extend({}, Default, $(this).data());
+          var _options = $.extend({}, Default, $(this).data());
 
           if (!data) {
-            data = new Treeview($(this), _config);
+            data = new Treeview($(this), _options);
             $(this).data(DATA_KEY, data);
           }
 
@@ -840,9 +942,7 @@
      * ====================================================
      */
 
-    var DirectChat =
-    /*#__PURE__*/
-    function () {
+    var DirectChat = /*#__PURE__*/function () {
       function DirectChat(element, config) {
         this._element = element;
       }
@@ -926,16 +1026,13 @@
       onUnCheck: function onUnCheck(item) {
         return item;
       }
-      /**
-       * Class Definition
-       * ====================================================
-       */
-
     };
+    /**
+     * Class Definition
+     * ====================================================
+     */
 
-    var TodoList =
-    /*#__PURE__*/
-    function () {
+    var TodoList = /*#__PURE__*/function () {
       function TodoList(element, config) {
         this._config = config;
         this._element = element;
@@ -979,10 +1076,10 @@
         return this.each(function () {
           var data = $(this).data(DATA_KEY);
 
-          var _config = $.extend({}, Default, $(this).data());
+          var _options = $.extend({}, Default, $(this).data());
 
           if (!data) {
-            data = new TodoList($(this), _config);
+            data = new TodoList($(this), _options);
             $(this).data(DATA_KEY, data);
           }
 
@@ -1044,6 +1141,8 @@
     var ClassName = {
       CARD: 'card',
       COLLAPSED: 'collapsed-card',
+      COLLAPSING: 'collapsing-card',
+      EXPANDING: 'expanding-card',
       WAS_COLLAPSED: 'was-collapsed',
       MAXIMIZED: 'maximized-card'
     };
@@ -1068,9 +1167,7 @@
       minimizeIcon: 'fa-compress'
     };
 
-    var CardWidget =
-    /*#__PURE__*/
-    function () {
+    var CardWidget = /*#__PURE__*/function () {
       function CardWidget(element, settings) {
         this._element = element;
         this._parent = element.parents(Selector.CARD).first();
@@ -1087,11 +1184,11 @@
       _proto.collapse = function collapse() {
         var _this = this;
 
-        this._parent.children(Selector.CARD_BODY + ", " + Selector.CARD_FOOTER).slideUp(this._settings.animationSpeed, function () {
-          _this._parent.addClass(ClassName.COLLAPSED);
+        this._parent.addClass(ClassName.COLLAPSING).children(Selector.CARD_BODY + ", " + Selector.CARD_FOOTER).slideUp(this._settings.animationSpeed, function () {
+          _this._parent.addClass(ClassName.COLLAPSED).removeClass(ClassName.COLLAPSING);
         });
 
-        this._parent.find(this._settings.collapseTrigger + ' .' + this._settings.collapseIcon).addClass(this._settings.expandIcon).removeClass(this._settings.collapseIcon);
+        this._parent.find('> ' + Selector.CARD_HEADER + ' ' + this._settings.collapseTrigger + ' .' + this._settings.collapseIcon).addClass(this._settings.expandIcon).removeClass(this._settings.collapseIcon);
 
         var collapsed = $.Event(Event.COLLAPSED);
 
@@ -1101,11 +1198,11 @@
       _proto.expand = function expand() {
         var _this2 = this;
 
-        this._parent.children(Selector.CARD_BODY + ", " + Selector.CARD_FOOTER).slideDown(this._settings.animationSpeed, function () {
-          _this2._parent.removeClass(ClassName.COLLAPSED);
+        this._parent.addClass(ClassName.EXPANDING).children(Selector.CARD_BODY + ", " + Selector.CARD_FOOTER).slideDown(this._settings.animationSpeed, function () {
+          _this2._parent.removeClass(ClassName.COLLAPSED).removeClass(ClassName.EXPANDING);
         });
 
-        this._parent.find(this._settings.collapseTrigger + ' .' + this._settings.expandIcon).addClass(this._settings.collapseIcon).removeClass(this._settings.expandIcon);
+        this._parent.find('> ' + Selector.CARD_HEADER + ' ' + this._settings.collapseTrigger + ' .' + this._settings.expandIcon).addClass(this._settings.collapseIcon).removeClass(this._settings.expandIcon);
 
         var expanded = $.Event(Event.EXPANDED);
 
@@ -1204,8 +1301,10 @@
       CardWidget._jQueryInterface = function _jQueryInterface(config) {
         var data = $(this).data(DATA_KEY);
 
+        var _options = $.extend({}, Default, $(this).data());
+
         if (!data) {
-          data = new CardWidget($(this), data);
+          data = new CardWidget($(this), _options);
           $(this).data(DATA_KEY, typeof config === 'string' ? data : config);
         }
 
@@ -1304,9 +1403,7 @@
       }
     };
 
-    var CardRefresh =
-    /*#__PURE__*/
-    function () {
+    var CardRefresh = /*#__PURE__*/function () {
       function CardRefresh(element, settings) {
         this._element = element;
         this._parent = element.parents(Selector.CARD).first();
@@ -1319,12 +1416,6 @@
 
         if (this._settings.source === '') {
           throw new Error('Source url was not defined. Please specify a url in your CardRefresh source option.');
-        }
-
-        this._init();
-
-        if (this._settings.loadOnInit) {
-          this.load();
         }
       }
 
@@ -1373,21 +1464,26 @@
         $(this).find(this._settings.trigger).on('click', function () {
           _this.load();
         });
+
+        if (this._settings.loadOnInit) {
+          this.load();
+        }
       } // Static
       ;
 
       CardRefresh._jQueryInterface = function _jQueryInterface(config) {
         var data = $(this).data(DATA_KEY);
-        var options = $(this).data();
+
+        var _options = $.extend({}, Default, $(this).data());
 
         if (!data) {
-          data = new CardRefresh($(this), options);
+          data = new CardRefresh($(this), _options);
           $(this).data(DATA_KEY, typeof config === 'string' ? data : config);
         }
 
         if (typeof config === 'string' && config.match(/load/)) {
           data[config]();
-        } else if (typeof config === 'object') {
+        } else {
           data._init($(this));
         }
       };
@@ -1406,6 +1502,11 @@
       }
 
       CardRefresh._jQueryInterface.call($(this), 'load');
+    });
+    $(document).ready(function () {
+      $(Selector.DATA_REFRESH).each(function () {
+        CardRefresh._jQueryInterface.call($(this));
+      });
     });
     /**
      * jQuery API
@@ -1438,8 +1539,14 @@
     var DATA_KEY = 'lte.dropdown';
     var JQUERY_NO_CONFLICT = $.fn[NAME];
     var Selector = {
-      DROPDOWN_MENU: 'ul.dropdown-menu',
+      NAVBAR: '.navbar',
+      DROPDOWN_MENU: '.dropdown-menu',
+      DROPDOWN_MENU_ACTIVE: '.dropdown-menu.show',
       DROPDOWN_TOGGLE: '[data-toggle="dropdown"]'
+    };
+    var ClassName = {
+      DROPDOWN_HOVER: 'dropdown-hover',
+      DROPDOWN_RIGHT: 'dropdown-menu-right'
     };
     var Default = {};
     /**
@@ -1447,9 +1554,7 @@
      * ====================================================
      */
 
-    var Dropdown =
-    /*#__PURE__*/
-    function () {
+    var Dropdown = /*#__PURE__*/function () {
       function Dropdown(element, config) {
         this._config = config;
         this._element = element;
@@ -1468,6 +1573,35 @@
         this._element.parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function (e) {
           $('.dropdown-submenu .show').removeClass("show").hide();
         });
+      };
+
+      _proto.fixPosition = function fixPosition() {
+        var elm = $(Selector.DROPDOWN_MENU_ACTIVE);
+
+        if (elm.length !== 0) {
+          if (elm.hasClass(ClassName.DROPDOWN_RIGHT)) {
+            elm.css('left', 'inherit');
+            elm.css('right', 0);
+          } else {
+            elm.css('left', 0);
+            elm.css('right', 'inherit');
+          }
+
+          var offset = elm.offset();
+          var width = elm.width();
+          var windowWidth = $(window).width();
+          var visiblePart = windowWidth - offset.left;
+
+          if (offset.left < 0) {
+            elm.css('left', 'inherit');
+            elm.css('right', offset.left - 5);
+          } else {
+            if (visiblePart < width) {
+              elm.css('left', 'inherit');
+              elm.css('right', 0);
+            }
+          }
+        }
       } // Static
       ;
 
@@ -1482,7 +1616,7 @@
             $(this).data(DATA_KEY, data);
           }
 
-          if (config === 'toggleSubmenu') {
+          if (config === 'toggleSubmenu' || config == 'fixPosition') {
             data[config]();
           }
         });
@@ -1501,13 +1635,13 @@
       event.stopPropagation();
 
       Dropdown._jQueryInterface.call($(this), 'toggleSubmenu');
-    }); // $(Selector.SIDEBAR + ' a').on('focusin', () => {
-    //   $(Selector.MAIN_SIDEBAR).addClass(ClassName.SIDEBAR_FOCUSED);
-    // })
-    // $(Selector.SIDEBAR + ' a').on('focusout', () => {
-    //   $(Selector.MAIN_SIDEBAR).removeClass(ClassName.SIDEBAR_FOCUSED);
-    // })
-
+    });
+    $(Selector.NAVBAR + ' ' + Selector.DROPDOWN_TOGGLE).on("click", function (event) {
+      event.preventDefault();
+      setTimeout(function () {
+        Dropdown._jQueryInterface.call($(this), 'fixPosition');
+      }, 1);
+    });
     /**
      * jQuery API
      * ====================================================
@@ -1524,6 +1658,217 @@
     return Dropdown;
   }(jQuery);
 
+  /**
+   * --------------------------------------------
+   * AdminLTE Toasts.js
+   * License MIT
+   * --------------------------------------------
+   */
+  var Toasts = function ($) {
+    /**
+     * Constants
+     * ====================================================
+     */
+    var NAME = 'Toasts';
+    var DATA_KEY = 'lte.toasts';
+    var EVENT_KEY = "." + DATA_KEY;
+    var JQUERY_NO_CONFLICT = $.fn[NAME];
+    var Event = {
+      INIT: "init" + EVENT_KEY,
+      CREATED: "created" + EVENT_KEY,
+      REMOVED: "removed" + EVENT_KEY
+    };
+    var Selector = {
+      BODY: 'toast-body',
+      CONTAINER_TOP_RIGHT: '#toastsContainerTopRight',
+      CONTAINER_TOP_LEFT: '#toastsContainerTopLeft',
+      CONTAINER_BOTTOM_RIGHT: '#toastsContainerBottomRight',
+      CONTAINER_BOTTOM_LEFT: '#toastsContainerBottomLeft'
+    };
+    var ClassName = {
+      TOP_RIGHT: 'toasts-top-right',
+      TOP_LEFT: 'toasts-top-left',
+      BOTTOM_RIGHT: 'toasts-bottom-right',
+      BOTTOM_LEFT: 'toasts-bottom-left',
+      FADE: 'fade'
+    };
+    var Position = {
+      TOP_RIGHT: 'topRight',
+      TOP_LEFT: 'topLeft',
+      BOTTOM_RIGHT: 'bottomRight',
+      BOTTOM_LEFT: 'bottomLeft'
+    };
+    var Default = {
+      position: Position.TOP_RIGHT,
+      fixed: true,
+      autohide: false,
+      autoremove: true,
+      delay: 1000,
+      fade: true,
+      icon: null,
+      image: null,
+      imageAlt: null,
+      imageHeight: '25px',
+      title: null,
+      subtitle: null,
+      close: true,
+      body: null,
+      class: null
+    };
+    /**
+     * Class Definition
+     * ====================================================
+     */
+
+    var Toasts = /*#__PURE__*/function () {
+      function Toasts(element, config) {
+        this._config = config;
+
+        this._prepareContainer();
+
+        var initEvent = $.Event(Event.INIT);
+        $('body').trigger(initEvent);
+      } // Public
+
+
+      var _proto = Toasts.prototype;
+
+      _proto.create = function create() {
+        var toast = $('<div class="toast" role="alert" aria-live="assertive" aria-atomic="true"/>');
+        toast.data('autohide', this._config.autohide);
+        toast.data('animation', this._config.fade);
+
+        if (this._config.class) {
+          toast.addClass(this._config.class);
+        }
+
+        if (this._config.delay && this._config.delay != 500) {
+          toast.data('delay', this._config.delay);
+        }
+
+        var toast_header = $('<div class="toast-header">');
+
+        if (this._config.image != null) {
+          var toast_image = $('<img />').addClass('rounded mr-2').attr('src', this._config.image).attr('alt', this._config.imageAlt);
+
+          if (this._config.imageHeight != null) {
+            toast_image.height(this._config.imageHeight).width('auto');
+          }
+
+          toast_header.append(toast_image);
+        }
+
+        if (this._config.icon != null) {
+          toast_header.append($('<i />').addClass('mr-2').addClass(this._config.icon));
+        }
+
+        if (this._config.title != null) {
+          toast_header.append($('<strong />').addClass('mr-auto').html(this._config.title));
+        }
+
+        if (this._config.subtitle != null) {
+          toast_header.append($('<small />').html(this._config.subtitle));
+        }
+
+        if (this._config.close == true) {
+          var toast_close = $('<button data-dismiss="toast" />').attr('type', 'button').addClass('ml-2 mb-1 close').attr('aria-label', 'Close').append('<span aria-hidden="true">&times;</span>');
+
+          if (this._config.title == null) {
+            toast_close.toggleClass('ml-2 ml-auto');
+          }
+
+          toast_header.append(toast_close);
+        }
+
+        toast.append(toast_header);
+
+        if (this._config.body != null) {
+          toast.append($('<div class="toast-body" />').html(this._config.body));
+        }
+
+        $(this._getContainerId()).prepend(toast);
+        var createdEvent = $.Event(Event.CREATED);
+        $('body').trigger(createdEvent);
+        toast.toast('show');
+
+        if (this._config.autoremove) {
+          toast.on('hidden.bs.toast', function () {
+            $(this).delay(200).remove();
+            var removedEvent = $.Event(Event.REMOVED);
+            $('body').trigger(removedEvent);
+          });
+        }
+      } // Static
+      ;
+
+      _proto._getContainerId = function _getContainerId() {
+        if (this._config.position == Position.TOP_RIGHT) {
+          return Selector.CONTAINER_TOP_RIGHT;
+        } else if (this._config.position == Position.TOP_LEFT) {
+          return Selector.CONTAINER_TOP_LEFT;
+        } else if (this._config.position == Position.BOTTOM_RIGHT) {
+          return Selector.CONTAINER_BOTTOM_RIGHT;
+        } else if (this._config.position == Position.BOTTOM_LEFT) {
+          return Selector.CONTAINER_BOTTOM_LEFT;
+        }
+      };
+
+      _proto._prepareContainer = function _prepareContainer() {
+        if ($(this._getContainerId()).length === 0) {
+          var container = $('<div />').attr('id', this._getContainerId().replace('#', ''));
+
+          if (this._config.position == Position.TOP_RIGHT) {
+            container.addClass(ClassName.TOP_RIGHT);
+          } else if (this._config.position == Position.TOP_LEFT) {
+            container.addClass(ClassName.TOP_LEFT);
+          } else if (this._config.position == Position.BOTTOM_RIGHT) {
+            container.addClass(ClassName.BOTTOM_RIGHT);
+          } else if (this._config.position == Position.BOTTOM_LEFT) {
+            container.addClass(ClassName.BOTTOM_LEFT);
+          }
+
+          $('body').append(container);
+        }
+
+        if (this._config.fixed) {
+          $(this._getContainerId()).addClass('fixed');
+        } else {
+          $(this._getContainerId()).removeClass('fixed');
+        }
+      } // Static
+      ;
+
+      Toasts._jQueryInterface = function _jQueryInterface(option, config) {
+        return this.each(function () {
+          var _options = $.extend({}, Default, config);
+
+          var toast = new Toasts($(this), _options);
+
+          if (option === 'create') {
+            toast[option]();
+          }
+        });
+      };
+
+      return Toasts;
+    }();
+    /**
+     * jQuery API
+     * ====================================================
+     */
+
+
+    $.fn[NAME] = Toasts._jQueryInterface;
+    $.fn[NAME].Constructor = Toasts;
+
+    $.fn[NAME].noConflict = function () {
+      $.fn[NAME] = JQUERY_NO_CONFLICT;
+      return Toasts._jQueryInterface;
+    };
+
+    return Toasts;
+  }(jQuery);
+
   exports.CardRefresh = CardRefresh;
   exports.CardWidget = CardWidget;
   exports.ControlSidebar = ControlSidebar;
@@ -1531,10 +1876,11 @@
   exports.Dropdown = Dropdown;
   exports.Layout = Layout;
   exports.PushMenu = PushMenu;
+  exports.Toasts = Toasts;
   exports.TodoList = TodoList;
   exports.Treeview = Treeview;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=adminlte.js.map
