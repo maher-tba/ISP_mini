@@ -40,8 +40,24 @@
                                 </ul>
                             </div>
                         </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fas fa-users-cog"></i>
+                                <span>المستخدمين</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="{{url('/users')}}">قائمة المستخدمين</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{url('/addUser')}}">اضافة مستخدم</a>
+                                    </li>
 
-{{--                        <li class="sidebar-dropdown">--}}
+                                </ul>
+                            </div>
+                        </li>
+                        {{--                        <li class="sidebar-dropdown">--}}
 {{--                            <a href="#">--}}
 {{--                                <i class="fas fa-users-cog"></i>--}}
 {{--                                <span>متقدم</span>--}}

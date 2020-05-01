@@ -20,3 +20,7 @@ Route::get('addUser', 'SettingsController@addUser')->name('addUser');
 Route::post('registerUser','SettingsController@registerUser')->name('registerUser');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+//users Routes
+Route::get('users','UserController@index');
