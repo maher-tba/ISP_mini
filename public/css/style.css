@@ -3,7 +3,13 @@
 body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {
     margin-left: 0px;
 }
-
+@media (min-width: 768px) {
+    body:not(.sidebar-mini-md) .content-wrapper,
+    body:not(.sidebar-mini-md) .main-footer,
+    body:not(.sidebar-mini-md) .main-header {
+        margin-left: 0px;
+    }
+}
 /*change header right inndent*/
 .layout-navbar-fixed .wrapper .main-header{
 right: 29px;

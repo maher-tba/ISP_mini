@@ -13,8 +13,10 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('auth');;
 
-Auth::routes();
+Auth::routes(['register' => false]);
+Route::get('addUser', 'SettingsController@addUser')->name('addUser');
+Route::post('registerUser','SettingsController@registerUser')->name('registerUser');
 
 Route::get('/home', 'HomeController@index')->name('home');

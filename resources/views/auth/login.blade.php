@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin_layout.admin_layout')
 
 @section('content')
 <div class="container">
@@ -6,12 +6,12 @@
         <div class="col-md-4 col-lg-4 mt-5 ">
 
             <div class="login-logo">
-                <a href="#"><b>Admin</b>LTE</a>
+                <a href="#"><b>EL</b>com</a>
             </div>
             <!-- /.login-logo -->
             <div class="card">
                 <div class="card-body login-card-body">
-                    <p class="login-box-msg">Sign in to start your session</p>
+                    <p class="login-box-msg">تسجيل دخول</p>
 
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -37,13 +37,13 @@
                                 <div class="icheck-primary">
                                     <input type="checkbox" id="remember">
                                     <label for="remember">
-                                        Remember Me
+                                        تذكر كلمة المرور
                                     </label>
                                 </div>
                             </div>
                             <!-- /.col -->
                             <div class="col-4">
-                                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                                <button type="submit" class="btn btn-primary btn-block">تسجيل دخول</button>
                             </div>
                             <!-- /.col -->
                         </div>
@@ -53,11 +53,10 @@
                     <!-- /.social-auth-links -->
 
                     <p class="mb-1">
-                        <a href="forgot-password.html">I forgot my password</a>
+{{--                        todo forgot-password--}}
+{{--                        <a href="forgot-password.html">I forgot my password</a>--}}
                     </p>
-                    <p class="mb-0">
-                        <a href="register.html" class="text-center">Register a new membership</a>
-                    </p>
+
                 </div>
                 <!-- /.login-card-body -->
             </div>
