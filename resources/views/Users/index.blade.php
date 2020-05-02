@@ -2,52 +2,51 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-12">
+            <!-- /.card -->
+            <div class="card card-info">
                 <div class="card-header">
-                    <h3 class="card-title">DataTable with default features</h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                    <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                    <h3 class="card-title">المستخدمين</h3>
 
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <table id="example1" class="table table-bordered table-striped dataTable dtr-inline"
-                                       role="grid" aria-describedby="example1_info">
-                                    <thead>
-                                    <tr role="row">
-                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
-                                            colspan="1" aria-label="Platform(s): activate to sort column ascending">
-                                            #
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
-                                            colspan="1" aria-label="Engine version: activate to sort column ascending">
-                                            الاسم
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
-                                            colspan="1" aria-label="CSS grade: activate to sort column ascending">
-                                            صلاحيات
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($users as $user)
-                                        <tr role="row" class="odd">
-                                            <td tabindex="0" class="sorting_1">{{$user->id}}</td>
-                                            <td>{{$user->name}}</td>
-                                            <td>{{implode(',',$user->Roles()->get()->pluck('name_ar')->toArray())}}</td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                            <i class="fas fa-minus"></i></button>
                     </div>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>الاسم</th>
+                            <th>الصلاحيات</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($users as $user)
+                            <tr >
+                                <td >{{$user->id}}</td>
+                                <td>{{$user->name}}</td>
+                                <td>{{implode(',',$user->Roles()->get()->pluck('name_ar')->toArray())}}</td>
+                                <td class="text-right py-0 align-middle">
+                                    <div class="btn-group btn-group-sm">
+                                        <a href="{{URL('/users/'.$user->id.'/edit')}}" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                        @can('users-delete')
+                                        <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                        @endcan
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+
+                        </tbody>
+                    </table>
                 </div>
                 <!-- /.card-body -->
             </div>
+
         </div>
     </div>
 </div>

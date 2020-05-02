@@ -19,20 +19,20 @@
                         <li class="header-menu">
                             <span>الاعدادات</span>
                         </li>
-                        <li class="sidebar-dropdown active">
+                        <li class="sidebar-dropdown ">
                             <a href="#">
                                 <i class="fas fa-home"></i>
                                 <span>الصفحة الرئيسية</span>
                                 {{--                       <span class="badge badge-pill badge-warning">جديد</span>--}}
                             </a>
-                            <div class="sidebar-submenu" style="display: block;">
+                            <div class="sidebar-submenu" style="display: none;">
                                 <ul>
 {{--                                    <li>--}}
 {{--                                        <a href='{{ url("/customers/create") }}'>اضافة مشترك--}}
 {{--                                        </a>--}}
 {{--                                    </li>--}}
                                     <li>
-                                        <a href='{{ url('/home') }}'>قائمة المشتركين</a>
+                                        <a href='{{ url('/') }}'>واجهة الموقع</a>
                                     </li>
 {{--                                    <li>--}}
 {{--                                        <a href='{{ url('/customers/trashed') }}'>الحسابات المحذوفة</a>--}}
@@ -57,81 +57,80 @@
                                 </ul>
                             </div>
                         </li>
-                        {{--                        <li class="sidebar-dropdown">--}}
-{{--                            <a href="#">--}}
-{{--                                <i class="fas fa-users-cog"></i>--}}
-{{--                                <span>متقدم</span>--}}
-{{--                            </a>--}}
-{{--                            <div class="sidebar-submenu">--}}
-{{--                                <ul>--}}
-{{--                                    <li>--}}
-{{--                                        <a href="#">ترحيل الحسابات</a>--}}
-{{--                                    </li>--}}
-{{--                                    <li>--}}
-{{--                                        <a href="#">تصفير الصناديق</a>--}}
-{{--                                    </li>--}}
+{{--                                                <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fas fa-users-cog"></i>
+                                <span>متقدم</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="#">ترحيل الحسابات</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">تصفير الصناديق</a>
+                                    </li>
 
-{{--                                </ul>--}}
-{{--                            </div>--}}
-{{--                        </li>--}}
+                                </ul>
+                            </div>
+                        </li>
                         <li class="header-menu">
                             <span>اوامر</span>
                         </li>
                         <li>
                             <a href="{{ url('/home') }}">
                                 <i class="fas fa-user-tag"></i>
-                                <span>ادارة المستخدمين</span>
-                                {{--                       <span class="badge badge-pill badge-danger">3</span>--}}
+                                <span>الاحصائيات</span>
                             </a>
                         </li>
-{{--                        <li>--}}
-{{--                            <a href="{{url('/settings/branches')}}">--}}
-{{--                                <i class="fas fa-map-marked-alt"></i>--}}
-{{--                                <span>مسؤولي القطاعات</span>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
+                        <li>
+                            <a href="{{url('/settings/branches')}}">
+                                <i class="fas fa-map-marked-alt"></i>
+                                <span>مسؤولي القطاعات</span>
+                            </a>
+                        </li>
 
-{{--                        <li>--}}
-{{--                            <a href="{{url("/branch")}}">--}}
-{{--                                <i class="fas fa-store-alt"></i>--}}
-{{--                                <span>اضافة قطاع</span>--}}
-{{--                                --}}{{-- <span class="badge badge-pill badge-primary">Beta</span> --}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="{{url("/editTelegram")}}">--}}
-{{--                                --}}{{--                        <i class="fa fa-chart-line"></i> --}}
-{{--                                <i class="fab fa-telegram-plane"></i>--}}
-{{--                                <span>اعدادات التلغرام</span>--}}
-{{--                                --}}{{-- <span class="badge badge-pill badge-primary">Beta</span> --}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="{{ url('/register')}}">--}}
-{{--                                <i class="fas fa-user-plus"></i>--}}
-{{--                                <span>اضافة مستخدم</span>--}}
-{{--                                --}}{{-- <span class="badge badge-pill badge-primary">Beta</span> --}}
-{{--                            </a>--}}
-{{--                        </li>--}}
+                        <li>
+                            <a href="{{url("/branch")}}">
+                                <i class="fas fa-store-alt"></i>
+                                <span>اضافة قطاع</span>
+                                 <span class="badge badge-pill badge-primary">Beta</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{url("/editTelegram")}}">
+                                                        <i class="fa fa-chart-line"></i>
+                                <i class="fab fa-telegram-plane"></i>
+                                <span>اعدادات التلغرام</span>
+                                 <span class="badge badge-pill badge-primary">Beta</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/register')}}">
+                                <i class="fas fa-user-plus"></i>
+                                <span>اضافة مستخدم</span>
+                                 <span class="badge badge-pill badge-primary">Beta</span>
+                            </a>
+                        </li>
 
-{{--                        <li>--}}
-{{--                            <a href="{{ url("/prices")}}">--}}
-{{--                                <i class="fa fa-shopping-cart"></i>--}}
-{{--                                <span>تحرير الاسعار</span>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href='#'>--}}
-{{--                                <i class="fas fa-search-location"></i>--}}
-{{--                                <span> اضافة مركز</span>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href='#'>--}}
-{{--                                <i class="far fa-credit-card"></i>--}}
-{{--                                <span> اضافة بطاقة</span>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
+                        <li>
+                            <a href="{{ url("/prices")}}">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>تحرير الاسعار</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href='#'>
+                                <i class="fas fa-search-location"></i>
+                                <span> اضافة مركز</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href='#'>
+                                <i class="far fa-credit-card"></i>
+                                <span> اضافة بطاقة</span>
+                            </a>
+                        </li>--}}
 
                     </ul>
                 </div>

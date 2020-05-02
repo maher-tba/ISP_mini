@@ -3002,7 +3002,7 @@
 
 
     if (typeof Promise === 'undefined') {
-      error('This package requires a Promise library, please include a shim to enable it in this browser (See: https://github.com/sweetalert2/sweetalert2/wiki/Migration-from-SweetAlert-to-SweetAlert2#1-ie-support)');
+      error('This package requires a Promise library, please header a shim to enable it in this browser (See: https://github.com/sweetalert2/sweetalert2/wiki/Migration-from-SweetAlert-to-SweetAlert2#1-ie-support)');
     }
 
     currentInstance = this;

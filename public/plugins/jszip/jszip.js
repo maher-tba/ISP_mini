@@ -1276,7 +1276,7 @@ module.exports = NodejsStreamOutputAdapter;
 module.exports = {
     /**
      * True if this is running in Nodejs, will be undefined in a browser.
-     * In a browser, browserify won't include this file and the whole module
+     * In a browser, browserify won't header this file and the whole module
      * will be resolved an empty object.
      */
     isNode : typeof Buffer !== "undefined",
@@ -3737,7 +3737,7 @@ ZipEntries.prototype = {
         var expectedEndOfCentralDirOffset = this.centralDirOffset + this.centralDirSize;
         if (this.zip64) {
             expectedEndOfCentralDirOffset += 20; // end of central dir 64 locator
-            expectedEndOfCentralDirOffset += 12 /* should not include the leading 12 bytes */ + this.zip64EndOfCentralSize;
+            expectedEndOfCentralDirOffset += 12 /* should not header the leading 12 bytes */ + this.zip64EndOfCentralSize;
         }
 
         var extraBytes = endOfCentralDirOffset - expectedEndOfCentralDirOffset;
@@ -10572,7 +10572,7 @@ function tr_static_init() {
     n++;
     bl_count[8]++;
   }
-  /* Codes 286 and 287 do not exist, but we must include them in the
+  /* Codes 286 and 287 do not exist, but we must header them in the
    * tree construction to get a canonical Huffman tree (longest code
    * all ones)
    */
@@ -11013,7 +11013,7 @@ function build_bl_tree(s) {
       break;
     }
   }
-  /* Update opt_len to include the bit length tree and counts */
+  /* Update opt_len to header the bit length tree and counts */
   s.opt_len += 3 * (max_blindex + 1) + 5 + 5 + 4;
   //Tracev((stderr, "\ndyn trees: dyn %ld, stat %ld",
   //        s->opt_len, s->static_len));

@@ -89,7 +89,6 @@
                                     </div>
                                 </div>
 
-
                                 <div class="input-group mb-3">
                                     <!-- /.col -->
                                     <button type="submit" class="btn btn-primary btn-block ">تسجيل</button>

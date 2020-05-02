@@ -778,10 +778,10 @@ module.exports = {
 	            // Count blocks ready
 	            var nBlocksReady = dataSigBytes / blockSizeBytes;
 	            if (doFlush) {
-	                // Round up to include partial blocks
+	                // Round up to header partial blocks
 	                nBlocksReady = Math.ceil(nBlocksReady);
 	            } else {
-	                // Round down to include only full blocks,
+	                // Round down to header only full blocks,
 	                // less the number of blocks that must remain in the buffer
 	                nBlocksReady = Math.max((nBlocksReady | 0) - this._minBufferSize, 0);
 	            }
@@ -12958,7 +12958,7 @@ function prependListener(emitter, event, fn) {
 
   // This is a hack to make sure that our error handler is attached before any
   // userland ones.  NEVER DO THIS. This is here only because this code needs
-  // to continue to work with older versions of Node.js that do not include
+  // to continue to work with older versions of Node.js that do not header
   // the prependListener() method. The goal is to eventually remove this hack.
   if (!emitter._events || !emitter._events[event]) emitter.on(event, fn);else if (isArray(emitter._events[event])) emitter._events[event].unshift(fn);else emitter._events[event] = [fn, emitter._events[event]];
 }
@@ -25600,7 +25600,7 @@ var AcroFormMixin = {
    * nodes in a PDF form that are used to specify form name heirarchy and form
    * value defaults.
    * @param {string} name - field name (T attribute in field dictionary)
-   * @param {object} options  - other attributes to include in field dictionary
+   * @param {object} options  - other attributes to header in field dictionary
    */
   formField: function formField(name) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -30542,7 +30542,7 @@ function tr_static_init() {
     n++;
     bl_count[8]++;
   }
-  /* Codes 286 and 287 do not exist, but we must include them in the
+  /* Codes 286 and 287 do not exist, but we must header them in the
    * tree construction to get a canonical Huffman tree (longest code
    * all ones)
    */
@@ -30983,7 +30983,7 @@ function build_bl_tree(s) {
       break;
     }
   }
-  /* Update opt_len to include the bit length tree and counts */
+  /* Update opt_len to header the bit length tree and counts */
   s.opt_len += 3 * (max_blindex + 1) + 5 + 5 + 4;
   //Tracev((stderr, "\ndyn trees: dyn %ld, stat %ld",
   //        s->opt_len, s->static_len));
@@ -49911,7 +49911,7 @@ var Subset = function () {
     this.glyphs = [];
     this.mapping = {};
 
-    // always include the missing glyph
+    // always header the missing glyph
     this.includeGlyph(0);
   }
 
@@ -50143,7 +50143,7 @@ var TTFSubset = function (_Subset) {
 
     var buffer = stream.readBuffer(nextOffset - curOffset);
 
-    // if it is a compound glyph, include its components
+    // if it is a compound glyph, header its components
     if (glyf && glyf.numberOfContours < 0) {
       buffer = new Buffer(buffer);
       for (var _iterator = glyf.components, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _getIterator(_iterator);;) {
@@ -50199,7 +50199,7 @@ var TTFSubset = function (_Subset) {
       bearings: []
     };
 
-    // include all the glyphs
+    // header all the glyphs
     // not using a for loop because we need to support adding more
     // glyphs to the array as we go, and CoffeeScript caches the length.
     var i = 0;
@@ -54531,7 +54531,7 @@ module.exports = {
     //    many unicode code points moved from PUA to Supplementary plane (U+2XXXX) over the years.
     //    Plus, it has 4 combining sequences.
     //    Seems that Mozilla refused to support it for 10 yrs. https://bugzilla.mozilla.org/show_bug.cgi?id=162431 https://bugzilla.mozilla.org/show_bug.cgi?id=310299
-    //    because big5-hkscs is the only encoding to include astral characters in non-algorithmic way.
+    //    because big5-hkscs is the only encoding to header astral characters in non-algorithmic way.
     //    Implementations are not consistent within browsers; sometimes labeled as just big5.
     //    MS Internet Explorer switches from big5 to big5-hkscs when a patch applied.
     //    Great discussion & recap of what's going on https://bugzilla.mozilla.org/show_bug.cgi?id=912470#c31
@@ -63350,7 +63350,7 @@ var augumenteccs = function (poly, nblocks, genpoly) {
 
 // auguments BCH(p+q,q) code to the polynomial over GF(2), given the proper
 // genpoly. the both input and output are in binary numbers, and unlike
-// calculateecc genpoly should include the 1 bit for the highest degree.
+// calculateecc genpoly should header the 1 bit for the highest degree.
 //
 // actual polynomials used for this procedure are as follows:
 // - p=10, q=5, genpoly=x^10+x^8+x^5+x^4+x^2+x+1 (JIS X 0510:2004 Appendix C)

@@ -1,5 +1,5 @@
 
-
+//sidebar toggle
 $(function() {
      "use strict";
 
@@ -14,26 +14,11 @@ $(function() {
           .toggleClass("sidebar-content-show");
     });
 
-    // $(".btn").on("click", function(){
-    //     $("btn-group").find(".active").removeClass("active"); //not work
-    //     $(this).addClass("active"); //work
-    //  });
-
+    // alert close
+    $('.alert').alert()
 
 });
 
-// var ul = document.getElementById("settings-list");
 
-// var listItems = ul.getElementsByClassName("sidebar-dropdown");
-
-// for(li of  listItems){
-//   li.addEventListener('click', function(){
-//     if(this.classList.contains('active')){
-//       this.classList.remove("active");
-//     } else {
-//       this.classList.add("active");
-//     }
-//   })
-// }
 
 

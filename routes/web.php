@@ -23,4 +23,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 //users Routes
-Route::get('users','UserController@index');
+//Route::get('users','UsersController@index')->name('users.index');
+
+Route::middleware('can:users-manger')->group(function (){
+    Route::resource('users','UsersController')->except([
+        'show'
+    ]);;
+});

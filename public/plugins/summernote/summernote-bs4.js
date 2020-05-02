@@ -2017,7 +2017,7 @@ function dom_html($node, isNewlineOnBlock) {
 function posFromPlaceholder(placeholder) {
   var $placeholder = external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()(placeholder);
   var pos = $placeholder.offset();
-  var height = $placeholder.outerHeight(true); // include margin
+  var height = $placeholder.outerHeight(true); // header margin
 
   return {
     left: pos.left,

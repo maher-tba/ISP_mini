@@ -1389,7 +1389,7 @@ function isModifierRequired(modifiers, requestingName, requestedName) {
   if (!isRequired) {
     var _requesting = '`' + requestingName + '`';
     var requested = '`' + requestedName + '`';
-    console.warn(requested + ' modifier is required by ' + _requesting + ' modifier in order to work, be sure to include it before ' + _requesting + '!');
+    console.warn(requested + ' modifier is required by ' + _requesting + ' modifier in order to work, be sure to header it before ' + _requesting + '!');
   }
   return isRequired;
 }
@@ -2569,7 +2569,7 @@ var Popper = function () {
     /**
      * Collection of utilities useful when writing custom modifiers.
      * Starting from version 1.7, this method is available only if you
-     * include `popper-utils.js` before `popper.js`.
+     * header `popper-utils.js` before `popper.js`.
      *
      * **DEPRECATION**: This way to access PopperUtils is deprecated
      * and will be removed in v2! Use the PopperUtils module directly instead.

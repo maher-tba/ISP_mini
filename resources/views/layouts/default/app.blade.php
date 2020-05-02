@@ -12,7 +12,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
-    @include('layouts.default.include.css')
+    @include('layouts.default.header.css')
 </head>
 <body>
     <div id="app">

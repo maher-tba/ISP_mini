@@ -1764,7 +1764,7 @@ function injectTzoStr(s, tzoStr) {
         replaced = true;
         return tzoStr;
     });
-    // IE11 doesn't include UTC/GMT in the original string, so append to end
+    // IE11 doesn't header UTC/GMT in the original string, so append to end
     if (!replaced) {
         s += ' ' + tzoStr;
     }
@@ -2396,7 +2396,7 @@ function filterSegsViaEls(context, segs, isMirror) {
                     isMirror: isMirror,
                     isStart: seg.isStart,
                     isEnd: seg.isEnd,
-                    // TODO: include seg.range once all components consistently generate it
+                    // TODO: header seg.range once all components consistently generate it
                     el: seg.el,
                     view: view
                 }
