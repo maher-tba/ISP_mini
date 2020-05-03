@@ -24,17 +24,27 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+
+        #################### start Can Gate Middleware Roles ##################
+
         Gate::define('users-manger',function ($user){
-            return $user->hasAnyRoles(['admin','user']);
+            if($user->hasAnyRoles(['admin','user']))
+                return true;
         });
 
         Gate::define('users-delete',function ($user){
            return $user->hasRole('admin');
         });
 
-        Gate::define('users-edit',function ($user){
-            return $user->hasRole('user');
+        Gate::define('users-add',function ($user){
+            return $user->hasRole('admin');
         });
+
+        Gate::define('users-edit',function ($user){
+            return $user->hasRole(['admin','user']);
+        });
+
+        #################### end Can Gate Middleware Roles ##################
 
     }
 }

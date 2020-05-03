@@ -5,7 +5,7 @@
     <div class="row justify-content-center mt-4">
         <div class="col-md-12">
             <!-- /.card -->
-            <div class="card card-info">
+            <div class="card card-secondary">
                 <div class="card-header">
                     <h3 class="card-title">المستخدمين</h3>
 
@@ -32,9 +32,18 @@
                                 <td>{{implode(',',$user->Roles()->get()->pluck('name_ar')->toArray())}}</td>
                                 <td class="text-right py-0 align-middle">
                                     <div class="btn-group btn-group-sm">
-                                        <a href="{{URL('/users/'.$user->id.'/edit')}}" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                        @can('users-edit')
+                                        <a href="{{URL('/users/'.$user->id.'/edit')}}" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                                        @endcan
                                         @can('users-delete')
-                                        <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                            <form action="{{ route('users.destroy', $user->id)}}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button  class="fabutton btn btn-danger" type="submit"><a class="btn btn-danger text-white"><i class="fas fa-trash"></i></a></button>
+                                            </form>
+                                        @endcan
+                                        @can('users-add')
+                                            <a href="{{URL('/addUser')}}" class="btn btn-success"><i class="fas fa-plus"></i></a>
                                         @endcan
                                     </div>
                                 </td>

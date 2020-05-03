@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Auth;
 
 class Handler extends ExceptionHandler
 {
@@ -46,6 +47,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        // this for 403 exception
+        if($exception->getMessage() == 'This action is unauthorized.'){
+            return redirect('/errors/403');
+        }
         return parent::render($request, $exception);
     }
 }

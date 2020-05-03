@@ -103,6 +103,9 @@ ul{
     padding: 0px;
     border: none;
 }
+.btn-group-sm>.btn, .btn-sm{
+    font-size: 1.1rem;
+}
 /* end hidden border button */
 
 /* strat alert  */

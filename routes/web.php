@@ -11,22 +11,27 @@
 |
 */
 
+################## Dashboard Route ######################
 Route::get('/', function () {
     return view('welcome');
-})->middleware('auth');;
-
-Auth::routes(['register' => false]);
-Route::get('addUser', 'SettingsController@addUser')->name('addUser');
-Route::post('registerUser','SettingsController@registerUser')->name('registerUser');
+})->middleware('auth');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+################## login Route ######################
+Auth::routes(['register' => false]);
 
-//users Routes
-//Route::get('users','UsersController@index')->name('users.index');
+############## Error Validation Request ############
+Route::get('/errors/403', function () {
+    return view('errors.403');
+});
 
+############### User Route #########################
 Route::middleware('can:users-manger')->group(function (){
     Route::resource('users','UsersController')->except([
         'show'
-    ]);;
+    ]);
+    Route::get('addUser', 'UsersController@addUser')->name('addUser');
+    Route::post('registerUser','UsersController@registerUser')->name('registerUser');
+
 });

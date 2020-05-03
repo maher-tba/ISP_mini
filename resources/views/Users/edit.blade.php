@@ -71,8 +71,8 @@
                                 @foreach($roles as $role)
 
                                         <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" type="checkbox" id="customCheckbox1" name="roles[]" value="{{ $role->id }}" @if($user->roles->pluck('id')->contains($role->id)) checked @endif>
-                                            <label for="customCheckbox1" class="custom-control-label">{{$role->name_ar}}</label>
+                                            <input class="custom-control-input" type="checkbox" id="customCheckbox{{$role->id}}" name="roles[]" value="{{ $role->id }}" @if($user->roles->pluck('id')->contains($role->id)) checked @endif>
+                                            <label for="customCheckbox{{$role->id}}" class="custom-control-label">{{$role->name_ar}}</label>
                                         </div>
                                     @endforeach
 
@@ -87,14 +87,7 @@
                 </div>
                 <!-- /.edit-card-body -->
             </div>
-
-
-            <!-- jQuery -->
-            <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
-            <!-- Bootstrap 4 -->
-            <script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-            <!-- AdminLTE App -->
-            <script src="{{asset('dist/js/adminlte.min.js')}}"></script>
+            
         </div>
     </div>
 </div>
