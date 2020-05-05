@@ -3,6 +3,8 @@
 use Illuminate\Database\Seeder;
 use App\User;
 use App\Role;
+use Illuminate\Support\Facades\DB;
+
 class RolesTableSeeder extends Seeder
 {
     /**
@@ -12,6 +14,7 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('roles')->delete();
         $role2 = new Role;
         $role2->name = 'admin';
         $role2->name_ar = 'مدير';
@@ -22,6 +25,10 @@ class RolesTableSeeder extends Seeder
         $role1->name_ar = 'مستخدم';
         $role1->save();
 
+        $role1 = new Role;
+        $role1->name = 'author';
+        $role1->name_ar = 'المالك';
+        $role1->save();
         $user = User::findOrFail(1);
         $user->Roles()->attach($role1);
         $user->Roles()->attach($role2);

@@ -37,11 +37,17 @@ class UsersController extends Controller
 ## update and Assign Roles and Edit Telegram settings for All User ##
 
     public function update(Request $request,User $user){
-        $data = $this->validateUpdateUser($request->all())->validate();
+
+        $data = $this->validator($request->all())->validate();
         $user->roles()->sync($request->roles);
         $user->name = $data['name'];
         $user->email = $data['email'];
-        if($user->save())
+        if(isset($request->password_changed)){
+            $password_valid = $this->passwordValidate($request->all())->validate();
+            $password = Hash::make($password_valid['password']);
+            $user->password = $password; //hashed password.
+        }
+       if($user->save())
             $request->session()->flash('success','تم تحديث المستخدم بنجاح');
         else
             $request->session()->flash('error','يوجد مشكلة في البيانات المدخلة');
@@ -51,46 +57,39 @@ class UsersController extends Controller
 
 ######################### registration User ########################
     public function addUser(){
-        return view('settings.addUser');
+        return view('Users.addUser');
     }
     public function registerUser(Request $request){
-
-        $data = $this->validateAddNewUser($request->all())->validate();
-        $password = Hash::make($data['password']);
+        $data = $this->validator($request->all())->validate();
+        $password_valid = $this->passwordValidate($request->all())->validate();
         $user = new User;
+        $password = Hash::make($password_valid['password']);
+        $user->password = $password; //hashed password.
         $user->name = $data['name'];
         $user->email = $data['email'];
-        $user->password = $password; //hashed password.
-        $user->token = $data['token']? '': $data['token'];
-        $user->chat_id = $data['chat_id']? '': $data['chat_id'];
         $user->save();
 
         // assign user Role for registration user
         $userRole = Role::select('id')->where('name','user')->first();
         $user->Roles()->attach($userRole);
         $user->save();
-
         return redirect('/users');
     }
 #################### validate validator Request add User and update ##############
-    protected function validateUpdateUser(array $data)
+    protected function validator(array $request)
     {
-        return Validator::make($data, [
+        return  Validator::make($request, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
-            'token' => 'string|max:255|nullable',
-            'chat_id' => 'string|max:255|nullable',
-            'roles' => 'required'
         ]);
+
     }
-    protected function validateAddNewUser(array $data)
+
+    protected function passwordValidate(array $request )
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
+        return Validator::make($request, [
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'token' => 'string|max:255|nullable',
-            'chat_id' => 'string|max:255|nullable',
+            'password_confirmation' => 'required_with:password|same:password|min:6'
         ]);
     }
 ########################### End validate ##################################

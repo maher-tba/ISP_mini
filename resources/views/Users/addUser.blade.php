@@ -71,23 +71,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <p> اعدادات التلغرام <span class="text-success">اختياري</span> </p>
-                                <div class="input-group mb-3">
-                                    <input id="token" type="text" class="form-control" name="token" placeholder=" token" autofocus>
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="fab fa-telegram-plane"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <input id="chat_id" type="text" class="form-control" name="chat_id" placeholder=" Chat id" autofocus>
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="fab fa-telegram-plane"></span>
-                                        </div>
-                                    </div>
-                                </div>
 
                                 <div class="input-group mb-3">
                                     <!-- /.col -->

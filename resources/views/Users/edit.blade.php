@@ -47,27 +47,40 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <p class="float-right  "> اعدادات التلغرام  </p>
+
+                                    <div class="custom-control custom-checkbox">
+                                        <input class="custom-control-input" type="checkbox" id="customCheckboxPassword" name="password_changed[]" value="true">
+                                        <label for="customCheckboxPassword" class="custom-control-label">تغيير كلمة السر</label>
+                                    </div>
+
                                     <div class="input-group mb-3">
-                                        <input id="token" type="text" class="form-control" value="{{$user->token}}" name="token" placeholder=" token" autofocus>
+                                        <input id="password" type="password"
+                                               class="form-control @error('password') is-invalid @enderror" name="password" readonly="true">
+
+                                        @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                        @enderror
                                         <div class="input-group-append">
                                             <div class="input-group-text">
-                                                <span class="fab fa-telegram-plane"></span>
+                                                <span class="fas fa-lock"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="input-group mb-3">
-                                        <input id="chat_id" type="text" class="form-control" name="chat_id" value="{{$user->chat_id}}" placeholder=" Chat id" autofocus>
+                                        <input id="password-confirm" type="password" class="form-control"
+                                               name="password_confirmation" readonly="true" >
                                         <div class="input-group-append">
                                             <div class="input-group-text">
-                                                <span class="fab fa-telegram-plane"></span>
+                                                <span class="fas fa-lock"></span>
                                             </div>
                                         </div>
                                     </div>
+
                                     <div>
                                         <p class="float-right "> صلاحيات المستخدم  </p>
                                     </div>
-
                                 @foreach($roles as $role)
 
                                         <div class="custom-control custom-checkbox">
@@ -87,7 +100,7 @@
                 </div>
                 <!-- /.edit-card-body -->
             </div>
-            
+
         </div>
     </div>
 </div>
