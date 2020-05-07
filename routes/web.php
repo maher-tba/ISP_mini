@@ -11,6 +11,8 @@
 |
 */
 
+Route::get('/sendMessage', 'TelegramController@notifyUser')->name('notify');
+
 ################## Dashboard Route ######################
 Route::get('/', function () {
     return view('welcome');

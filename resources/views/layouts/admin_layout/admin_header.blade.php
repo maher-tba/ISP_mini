@@ -4,7 +4,7 @@
     <nav class="main-header navbar navbar-expand-md shadow-sm navbar-dark navbar-gray-dark">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Elcom') }}
+                {{ config('app.name', 'ISP mini') }}
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
@@ -19,14 +19,16 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link" data-toggle="dropdown" href="#">
                             <i class="far fa-bell"></i>
-                            <span class="badge badge-warning navbar-badge">3</span>
+                            <span class="badge badge-warning navbar-badge">{{count(auth()->user()->unreadNotifications)}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                            <span class="dropdown-item dropdown-header">15 Notifications</span>
+                            <span class="dropdown-item dropdown-header">{{count(auth()->user()->unreadNotifications)}} Notifications</span>
                             <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-item">
                                 <i class="fas fa-envelope mr-2"></i> 4 new messages
-                                <span class="float-right text-muted text-sm">3 mins</span>
+                                @foreach(auth()->user()->unreadNotifications as $notifi)
+                                    <span class="float-right text-muted text-sm">{{$notifi->data['repliedTime']}} 3 mins</span>
+                                @endforeach
                             </a>
                             <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-item">

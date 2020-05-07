@@ -9,7 +9,7 @@
                 <div class="sidebar-header">
 
                     <h2 class="text-danger text-center m-4 "><i class="fa fa-tachometer-alt fa-x4 text-danger"></i>
-                        &nbsp; <span style="color: white;"> EL<span class="text-danger">Com</span> </span></h2>
+                        &nbsp; <span style="color: white;"> ISP<span class="text-danger">mini</span> </span></h2>
                 </div>
                 <!-- sidebar-header  -->
 
