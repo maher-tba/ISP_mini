@@ -55,7 +55,7 @@ var _firefoxScroll;
  * fix the left most column in place. This plug-in for DataTables provides
  * exactly this option (note for non-scrolling tables, please use the
  * FixedHeader plug-in, which can fix headers and footers). Key
- * features header:
+ * features head:
  *
  * * Freezes the left or right most columns to the side of the table
  * * Option to freeze two or more columns
@@ -165,7 +165,7 @@ var FixedColumns = function ( dt, init ) {
 		"scroller": null,
 
 		/**
-		 * DataTables header table
+		 * DataTables head table
 		 *  @type     node
 		 *  @default  null
 		 */
@@ -240,7 +240,7 @@ var FixedColumns = function ( dt, init ) {
 			 */
 			"left": {
 				/**
-				 * Cloned header table
+				 * Cloned head table
 				 *  @type     node
 				 *  @default  null
 				 */
@@ -267,7 +267,7 @@ var FixedColumns = function ( dt, init ) {
 			 */
 			"right": {
 				/**
-				 * Cloned header table
+				 * Cloned head table
 				 *  @type     node
 				 *  @default  null
 				 */
@@ -736,7 +736,7 @@ $.extend( FixedColumns.prototype , {
 	 * for the left column, the DataTable (for which we just reuse the scrolling element DataTable
 	 * puts into the DOM) and the right column. In each of he two fixed column elements there is a
 	 * grouping wrapper element and then a head, body and footer wrapper. In each of these we then
-	 * place the cloned header, body or footer tables. This effectively gives as 3x3 grid structure.
+	 * place the cloned head, body or footer tables. This effectively gives as 3x3 grid structure.
 	 *  @returns {void}
 	 *  @private
 	 */
@@ -970,7 +970,7 @@ $.extend( FixedColumns.prototype , {
 	/**
 	 * Clone and position the fixed columns
 	 *  @returns {void}
-	 *  @param   {Boolean} bAll Indicate if the header and footer should be updated as well (true)
+	 *  @param   {Boolean} bAll Indicate if the head and footer should be updated as well (true)
 	 *  @private
 	 */
 	"_fnDraw": function ( bAll )
@@ -996,7 +996,7 @@ $.extend( FixedColumns.prototype , {
 	/**
 	 * Clone the right columns
 	 *  @returns {void}
-	 *  @param   {Boolean} bAll Indicate if the header and footer should be updated as well (true)
+	 *  @param   {Boolean} bAll Indicate if the head and footer should be updated as well (true)
 	 *  @private
 	 */
 	"_fnCloneRight": function ( bAll )
@@ -1022,7 +1022,7 @@ $.extend( FixedColumns.prototype , {
 	/**
 	 * Clone the left columns
 	 *  @returns {void}
-	 *  @param   {Boolean} bAll Indicate if the header and footer should be updated as well (true)
+	 *  @param   {Boolean} bAll Indicate if the head and footer should be updated as well (true)
 	 *  @private
 	 */
 	"_fnCloneLeft": function ( bAll )
@@ -1046,7 +1046,7 @@ $.extend( FixedColumns.prototype , {
 
 
 	/**
-	 * Make a copy of the layout object for a header or footer element from DataTables. Note that
+	 * Make a copy of the layout object for a head or footer element from DataTables. Note that
 	 * this method will clone the nodes in the layout object.
 	 *  @returns {Array} Copy of the layout array
 	 *  @param   {Object} aoOriginal Layout array from DataTables (aoHeader or aoFooter)
@@ -1103,11 +1103,11 @@ $.extend( FixedColumns.prototype , {
 	/**
 	 * Clone the DataTable nodes and place them in the DOM (sized correctly)
 	 *  @returns {void}
-	 *  @param   {Object} oClone Object containing the header, footer and body cloned DOM elements
+	 *  @param   {Object} oClone Object containing the head, footer and body cloned DOM elements
 	 *  @param   {Object} oGrid Grid object containing the display grid elements for the cloned
 	 *                    column (left or right)
 	 *  @param   {Array} aiColumns Column indexes which should be operated on from the DataTable
-	 *  @param   {Boolean} bAll Indicate if the header and footer should be updated as well (true)
+	 *  @param   {Boolean} bAll Indicate if the head and footer should be updated as well (true)
 	 *  @private
 	 */
 	"_fnClone": function ( oClone, oGrid, aiColumns, bAll )
@@ -1129,7 +1129,7 @@ $.extend( FixedColumns.prototype , {
 			oClone.header.style.width = "100%";
 			oGrid.head.appendChild( oClone.header );
 
-			/* Copy the DataTables layout cache for the header for our floating column */
+			/* Copy the DataTables layout cache for the head for our floating column */
 			aoCloneLayout = this._fnCopyLayout( dt.aoHeader, aiColumns, true );
 			jqCloneThead = $('>thead', oClone.header);
 			jqCloneThead.empty();
@@ -1148,7 +1148,7 @@ $.extend( FixedColumns.prototype , {
 		else
 		{
 			/* To ensure that we copy cell classes exactly, regardless of colspan, multiple rows
-			 * etc, we make a copy of the header from the DataTable again, but don't insert the
+			 * etc, we make a copy of the head from the DataTable again, but don't insert the
 			 * cloned cells, just copy the classes across. To get the matching layout for the
 			 * fixed component, we use the DataTables _fnDetectHeader method, allowing 1:1 mapping
 			 */
@@ -1203,8 +1203,8 @@ $.extend( FixedColumns.prototype , {
 		$(nBody).empty();
 		if ( dt.aiDisplay.length > 0 )
 		{
-			/* Copy the DataTables' header elements to force the column width in exactly the
-			 * same way that DataTables does it - have the header element, apply the width and
+			/* Copy the DataTables' head elements to force the column width in exactly the
+			 * same way that DataTables does it - have the head element, apply the width and
 			 * colapse it down
 			 */
 			var nInnerThead = $('>thead>tr', oClone.body)[0];
@@ -1301,7 +1301,7 @@ $.extend( FixedColumns.prototype , {
 				oClone.footer.style.width = "100%";
 				oGrid.foot.appendChild( oClone.footer );
 
-				/* Copy the footer just like we do for the header */
+				/* Copy the footer just like we do for the head */
 				aoCloneLayout = this._fnCopyLayout( dt.aoFooter, aiColumns, true );
 				var jqCloneTfoot = $('>tfoot', oClone.footer);
 				jqCloneTfoot.empty();
@@ -1330,7 +1330,7 @@ $.extend( FixedColumns.prototype , {
 			this._fnEqualiseHeights( 'tfoot', this.dom.footer, oClone.footer );
 		}
 
-		/* Equalise the column widths between the header footer and body - body get's priority */
+		/* Equalise the column widths between the head footer and body - body get's priority */
 		var anUnique = dt.oApi._fnGetUniqueThs( dt, $('>thead', oClone.header)[0] );
 		$(anUnique).each( function (i) {
 			iColumn = aiColumns[i];

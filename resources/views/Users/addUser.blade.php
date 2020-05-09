@@ -1,5 +1,9 @@
 @extends('layouts.admin_layout.admin_layout')
+@section('styles')
+    @parent
+    <!-- DataTables -->
 
+@endsection
 @section('content')
     <div class="container">
         <div class="row justify-content-center">

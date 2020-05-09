@@ -1770,7 +1770,7 @@ Docs & License: https://fullcalendar.io/
             replaced = true;
             return tzoStr;
         });
-        // IE11 doesn't header UTC/GMT in the original string, so append to end
+        // IE11 doesn't head UTC/GMT in the original string, so append to end
         if (!replaced) {
             s += ' ' + tzoStr;
         }
@@ -2402,7 +2402,7 @@ Docs & License: https://fullcalendar.io/
                         isMirror: isMirror,
                         isStart: seg.isStart,
                         isEnd: seg.isEnd,
-                        // TODO: header seg.range once all components consistently generate it
+                        // TODO: head seg.range once all components consistently generate it
                         el: seg.el,
                         view: view
                     }
@@ -6239,7 +6239,7 @@ Docs & License: https://fullcalendar.io/
             };
             if (headerLayout) {
                 if (!header) {
-                    header = this.header = new Toolbar('fc-header-toolbar');
+                    header = this.header = new Toolbar('fc-head-toolbar');
                     prependToElement(this.el, header.el);
                 }
                 header.receiveProps(__assign({ layout: headerLayout }, toolbarProps), context);
@@ -6544,15 +6544,15 @@ Docs & License: https://fullcalendar.io/
     }(Theme));
     StandardTheme.prototype.classes = {
         widget: 'fc-unthemed',
-        widgetHeader: 'fc-widget-header',
+        widgetHeader: 'fc-widget-head',
         widgetContent: 'fc-widget-content',
         buttonGroup: 'fc-button-group',
         button: 'fc-button fc-button-primary',
         buttonActive: 'fc-button-active',
-        popoverHeader: 'fc-widget-header',
+        popoverHeader: 'fc-widget-head',
         popoverContent: 'fc-widget-content',
         // day grid
-        headerRow: 'fc-widget-header',
+        headerRow: 'fc-widget-head',
         dayRow: 'fc-widget-content',
         // list view
         listView: 'fc-widget-content'
@@ -8188,7 +8188,7 @@ Docs & License: https://fullcalendar.io/
         return refined;
     }
 
-    // Computes a default column header formatting string if `colFormat` is not explicitly defined
+    // Computes a default column head formatting string if `colFormat` is not explicitly defined
     function computeFallbackHeaderFormat(datesRepDistinctDays, dayCnt) {
         // if more than one week row, or if there are a lot of columns with not much space,
         // put just the day numbers will be in each cell
@@ -8206,7 +8206,7 @@ Docs & License: https://fullcalendar.io/
         var dateEnv = context.dateEnv, theme = context.theme, options = context.options;
         var isDateValid = rangeContainsMarker(dateProfile.activeRange, dateMarker); // TODO: called too frequently. cache somehow.
         var classNames = [
-            'fc-day-header',
+            'fc-day-head',
             theme.getClass('widgetHeader')
         ];
         var innerHtml;
@@ -8219,11 +8219,11 @@ Docs & License: https://fullcalendar.io/
         else {
             innerHtml = htmlEscape(dateEnv.format(dateMarker, colHeadFormat));
         }
-        // if only one row of days, the classNames on the header can represent the specific days beneath
+        // if only one row of days, the classNames on the head can represent the specific days beneath
         if (datesRepDistinctDays) {
             classNames = classNames.concat(
             // includes the day-of-week class
-            // noThemeHighlight=true (don't highlight the header)
+            // noThemeHighlight=true (don't highlight the head)
             getDayClasses(dateMarker, dateProfile, context, true));
         }
         else {

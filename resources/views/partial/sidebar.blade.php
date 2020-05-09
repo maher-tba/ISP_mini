@@ -11,7 +11,7 @@
                     <h2 class="text-danger text-center m-4 "><i class="fa fa-tachometer-alt fa-x4 text-danger"></i>
                         &nbsp; <span style="color: white;"> ISP<span class="text-danger">mini</span> </span></h2>
                 </div>
-                <!-- sidebar-header  -->
+                <!-- sidebar-head  -->
 
 
                 <div class="sidebar-menu">
@@ -74,7 +74,7 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="header-menu">
+                        <li class="head-menu">
                             <span>اوامر</span>
                         </li>
                         <li>

@@ -3529,7 +3529,7 @@ var effectsEffectSize = $.effects.define( "size", function( options, done ) {
 		hProps = hProps.concat( [ "marginLeft", "marginRight" ] );
 
 		// Only animate children with width attributes specified
-		// TODO: is this right? should we header anything with css width specified as well
+		// TODO: is this right? should we head anything with css width specified as well
 		element.find( "*[width]" ).each( function() {
 			var child = $( this ),
 				childOriginal = $.effects.scaledDimensions( child ),
@@ -4389,9 +4389,9 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 
 		if ( icons ) {
 			icon = $( "<span>" );
-			this._addClass( icon, "ui-accordion-header-icon", "ui-icon " + icons.header );
+			this._addClass( icon, "ui-accordion-head-icon", "ui-icon " + icons.header );
 			icon.prependTo( this.headers );
-			children = this.active.children( ".ui-accordion-header-icon" );
+			children = this.active.children( ".ui-accordion-head-icon" );
 			this._removeClass( children, icons.header )
 				._addClass( children, null, icons.activeHeader )
 				._addClass( this.headers, "ui-accordion-icons" );
@@ -4400,7 +4400,7 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 
 	_destroyIcons: function() {
 		this._removeClass( this.headers, "ui-accordion-icons" );
-		this.headers.children( ".ui-accordion-header-icon" ).remove();
+		this.headers.children( ".ui-accordion-head-icon" ).remove();
 	},
 
 	_destroy: function() {
@@ -4559,7 +4559,7 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 			prevPanels = this.panels;
 
 		this.headers = this.element.find( this.options.header );
-		this._addClass( this.headers, "ui-accordion-header ui-accordion-header-collapsed",
+		this._addClass( this.headers, "ui-accordion-head ui-accordion-head-collapsed",
 			"ui-state-default" );
 
 		this.panels = this.headers.next().filter( ":not(.ui-accordion-content-active)" ).hide();
@@ -4579,7 +4579,7 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 			parent = this.element.parent();
 
 		this.active = this._findActive( options.active );
-		this._addClass( this.active, "ui-accordion-header-active", "ui-state-active" )
+		this._addClass( this.active, "ui-accordion-head-active", "ui-state-active" )
 			._removeClass( this.active, "ui-accordion-header-collapsed" );
 		this._addClass( this.active.next(), "ui-accordion-content-active" );
 		this.active.next().show();
@@ -4610,7 +4610,7 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 					} )
 					.hide();
 
-		// Make sure at least one header is in the tab order
+		// Make sure at least one head is in the tab order
 		if ( !this.active.length ) {
 			this.headers.eq( 0 ).attr( "tabIndex", 0 );
 		} else {
@@ -4676,7 +4676,7 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 			return;
 		}
 
-		// Trying to collapse, simulate a click on the currently active header
+		// Trying to collapse, simulate a click on the currently active head
 		active = active || this.active[ 0 ];
 
 		this._eventHandler( {
@@ -4727,7 +4727,7 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 
 		if (
 
-				// click on active header, but not collapsible
+				// click on active head, but not collapsible
 				( clickedIsActive && !options.collapsible ) ||
 
 				// allow canceling activation
@@ -4743,19 +4743,19 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 		this._toggle( eventData );
 
 		// Switch classes
-		// corner classes on the previously active header stay after the animation
-		this._removeClass( active, "ui-accordion-header-active", "ui-state-active" );
+		// corner classes on the previously active head stay after the animation
+		this._removeClass( active, "ui-accordion-head-active", "ui-state-active" );
 		if ( options.icons ) {
-			activeChildren = active.children( ".ui-accordion-header-icon" );
+			activeChildren = active.children( ".ui-accordion-head-icon" );
 			this._removeClass( activeChildren, null, options.icons.activeHeader )
 				._addClass( activeChildren, null, options.icons.header );
 		}
 
 		if ( !clickedIsActive ) {
 			this._removeClass( clicked, "ui-accordion-header-collapsed" )
-				._addClass( clicked, "ui-accordion-header-active", "ui-state-active" );
+				._addClass( clicked, "ui-accordion-head-active", "ui-state-active" );
 			if ( options.icons ) {
-				clickedChildren = clicked.children( ".ui-accordion-header-icon" );
+				clickedChildren = clicked.children( ".ui-accordion-head-icon" );
 				this._removeClass( clickedChildren, null, options.icons.header )
 					._addClass( clickedChildren, null, options.icons.activeHeader );
 			}
@@ -4789,9 +4789,9 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 			"aria-expanded": "false"
 		} );
 
-		// if we're switching panels, remove the old header from the tab order
-		// if we're opening from collapsed state, remove the previous header from the tab order
-		// if we're collapsing, then keep the collapsing header in the tab order
+		// if we're switching panels, remove the old head from the tab order
+		// if we're opening from collapsed state, remove the previous head from the tab order
+		// if we're collapsing, then keep the collapsing head in the tab order
 		if ( toShow.length && toHide.length ) {
 			toHide.prev().attr( {
 				"tabIndex": -1,
@@ -4878,7 +4878,7 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 			prev = toHide.prev();
 
 		this._removeClass( toHide, "ui-accordion-content-active" );
-		this._removeClass( prev, "ui-accordion-header-active" )
+		this._removeClass( prev, "ui-accordion-head-active" )
 			._addClass( prev, "ui-accordion-header-collapsed" );
 
 		// Work around for rendering bug in IE (#5421)
@@ -7242,7 +7242,7 @@ function Datepicker() {
 		dayNames: [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ], // For formatting
 		dayNamesShort: [ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ], // For formatting
 		dayNamesMin: [ "Su","Mo","Tu","We","Th","Fr","Sa" ], // Column headings for days starting at Sunday
-		weekHeader: "Wk", // Column header for week of the year
+		weekHeader: "Wk", // Column head for week of the year
 		dateFormat: "mm/dd/yy", // See format options on parseDate
 		firstDay: 0, // The first day of the week, Sun = 0, Mon = 1, ...
 		isRTL: false, // True if right-to-left language, false if left-to-right
@@ -8273,7 +8273,7 @@ $.extend( Datepicker.prototype, {
 	 *
 	 * @param  format string - the expected format of the date
 	 * @param  value string - the date in the above format
-	 * @param  settings Object - attributes header:
+	 * @param  settings Object - attributes head:
 	 *					shortYearCutoff  number - the cutoff year for determining the century (optional)
 	 *					dayNamesShort	string[7] - abbreviated names of the days from Sunday (optional)
 	 *					dayNames		string[7] - names of the days from Sunday (optional)
@@ -8487,7 +8487,7 @@ $.extend( Datepicker.prototype, {
 	 *
 	 * @param  format string - the desired format of the date
 	 * @param  date Date - the date value to format
-	 * @param  settings Object - attributes header:
+	 * @param  settings Object - attributes head:
 	 *					dayNamesShort	string[7] - abbreviated names of the days from Sunday (optional)
 	 *					dayNames		string[7] - names of the days from Sunday (optional)
 	 *					monthNamesShort string[12] - abbreviated names of the months (optional)
@@ -8913,7 +8913,7 @@ $.extend( Datepicker.prototype, {
 					}
 					calender += "'>";
 				}
-				calender += "<div class='ui-datepicker-header ui-widget-header ui-helper-clearfix" + cornerClass + "'>" +
+				calender += "<div class='ui-datepicker-head ui-widget-head ui-helper-clearfix" + cornerClass + "'>" +
 					( /all|left/.test( cornerClass ) && row === 0 ? ( isRTL ? next : prev ) : "" ) +
 					( /all|right/.test( cornerClass ) && row === 0 ? ( isRTL ? prev : next ) : "" ) +
 					this._generateMonthYearHeader( inst, drawMonth, drawYear, minDate, maxDate,
@@ -8987,7 +8987,7 @@ $.extend( Datepicker.prototype, {
 		return html;
 	},
 
-	/* Generate the month and year header. */
+	/* Generate the month and year head. */
 	_generateMonthYearHeader: function( inst, drawMonth, drawYear, minDate, maxDate,
 			secondary, monthNames, monthNamesShort ) {
 
@@ -12326,7 +12326,7 @@ $.widget( "ui.dialog", {
 
 		this.uiDialogTitlebar = $( "<div>" );
 		this._addClass( this.uiDialogTitlebar,
-			"ui-dialog-titlebar", "ui-widget-header ui-helper-clearfix" );
+			"ui-dialog-titlebar", "ui-widget-head ui-helper-clearfix" );
 		this._on( this.uiDialogTitlebar, {
 			mousedown: function( event ) {
 
@@ -13391,7 +13391,7 @@ var widgetsProgressbar = $.widget( "ui.progressbar", {
 		this._addClass( "ui-progressbar", "ui-widget ui-widget-content" );
 
 		this.valueDiv = $( "<div>" ).appendTo( this.element );
-		this._addClass( this.valueDiv, "ui-progressbar-value", "ui-widget-header" );
+		this._addClass( this.valueDiv, "ui-progressbar-value", "ui-widget-head" );
 		this._refreshValue();
 	},
 
@@ -14492,9 +14492,9 @@ var widgetsSlider = $.widget( "ui.slider", $.ui.mouse, {
 			"ui-slider": "ui-corner-all",
 			"ui-slider-handle": "ui-corner-all",
 
-			// Note: ui-widget-header isn't the most fittingly semantic framework class for this
+			// Note: ui-widget-head isn't the most fittingly semantic framework class for this
 			// element, but worked best visually with a variety of themes
-			"ui-slider-range": "ui-corner-all ui-widget-header"
+			"ui-slider-range": "ui-corner-all ui-widget-head"
 		},
 		distance: 0,
 		max: 100,
@@ -17674,7 +17674,7 @@ $.widget( "ui.tabs", {
 
 		this.tablist = this._getList().attr( "role", "tablist" );
 		this._addClass( this.tablist, "ui-tabs-nav",
-			"ui-helper-reset ui-helper-clearfix ui-widget-header" );
+			"ui-helper-reset ui-helper-clearfix ui-widget-head" );
 
 		// Prevent users from focusing disabled tabs via click
 		this.tablist
@@ -17890,7 +17890,7 @@ $.widget( "ui.tabs", {
 				// can't switch durning an animation
 				this.running ||
 
-				// click on active header, but not collapsible
+				// click on active head, but not collapsible
 				( clickedIsActive && !options.collapsible ) ||
 
 				// allow canceling activation
@@ -17988,7 +17988,7 @@ $.widget( "ui.tabs", {
 			return;
 		}
 
-		// Trying to collapse, simulate a click on the current active header
+		// Trying to collapse, simulate a click on the current active head
 		if ( !active.length ) {
 			active = this.active;
 		}

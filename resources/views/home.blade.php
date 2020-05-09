@@ -1,5 +1,9 @@
 @extends('layouts.admin_layout.admin_layout')
 
+@section('title')
+    Home
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -8,7 +12,7 @@
                 <div class="card-header">
                     <h3 class="card-title">DataTable with default features</h3>
                 </div>
-                <!-- /.card-header -->
+                <!-- /.card-head -->
                 <div class="card-body">
                     <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
 
@@ -131,4 +135,29 @@
         </div>
     </div>
 </div>
+@section('footer_js')
+
+    {{--#################### start datatable JavaScript search #####################--}}
+    <!-- page script -->
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+    {{--#################### end datatable JavaScript search #####################--}}
+
+@endsection
+
 @endsection

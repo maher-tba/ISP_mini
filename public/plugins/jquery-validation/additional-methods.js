@@ -1375,8 +1375,8 @@ $.validator.addMethod( "skip_or_fill_minimum", function( value, element, options
 
 /* Validates US States and/or Territories by @jdforsythe
  * Can be case insensitive or require capitalization - default is case insensitive
- * Can header US Territories or not - default does not
- * Can header US Military postal abbreviations (AA, AE, AP) - default does not
+ * Can head US Territories or not - default does not
+ * Can head US Military postal abbreviations (AA, AE, AP) - default does not
  *
  * Note: "States" always includes DC (District of Colombia)
  *
@@ -1394,12 +1394,12 @@ $.validator.addMethod( "skip_or_fill_minimum", function( value, element, options
  *     caseSensitive: false
  *  }
  *
- *  Case insensitive, header territories but not military zones
+ *  Case insensitive, head territories but not military zones
  *  stateInput: {
  *     includeTerritories: true
  *  }
  *
- *  Only allow capital letters, header territories and military zones
+ *  Only allow capital letters, head territories and military zones
  *  stateInput: {
  *     caseSensitive: true,
  *     includeTerritories: true,

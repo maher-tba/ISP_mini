@@ -2,7 +2,7 @@
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
+        <!-- Content Header (Page head) -->
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -18,7 +18,7 @@
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
-        <!-- /.content-header -->
+        <!-- /.content-head -->
 
         <!-- Main content -->
         <section class="content">
@@ -114,7 +114,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <!-- /.card-header -->
+                            <!-- /.card-head -->
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-8">
@@ -241,7 +241,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <!-- /.card-header -->
+                            <!-- /.card-head -->
                             <div class="card-body p-0">
                                 <div class="d-md-flex">
                                     <div class="p-1 flex-fill" style="overflow: hidden">
@@ -293,7 +293,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <!-- /.card-header -->
+                                    <!-- /.card-head -->
                                     <div class="card-body">
                                         <!-- Conversations are loaded here -->
                                         <div class="direct-chat-messages">
@@ -493,7 +493,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <!-- /.card-header -->
+                                    <!-- /.card-head -->
                                     <div class="card-body p-0">
                                         <ul class="users-list clearfix">
                                             <li>
@@ -565,7 +565,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <!-- /.card-header -->
+                            <!-- /.card-head -->
                             <div class="card-body p-0">
                                 <div class="table-responsive">
                                     <table class="table m-0">
@@ -704,7 +704,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <!-- /.card-header -->
+                            <!-- /.card-head -->
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-8">
@@ -775,7 +775,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <!-- /.card-header -->
+                            <!-- /.card-head -->
                             <div class="card-body p-0">
                                 <ul class="products-list product-list-in-card pl-2 pr-2">
                                     <li class="item">

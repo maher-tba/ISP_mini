@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="content-wrapper" style="min-height: 1589.56px;">
-        <!-- Content Header (Page header) -->
+        <!-- Content Header (Page head) -->
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">

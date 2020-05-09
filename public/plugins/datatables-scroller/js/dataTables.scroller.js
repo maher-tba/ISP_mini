@@ -69,7 +69,7 @@ var DataTable = $.fn.dataTable;
  * table you want to have this feature enabled on. Note that the 'S' must come
  * AFTER the 't' parameter in `dom`.
  *
- * Key features header:
+ * Key features head:
  *   <ul class="limit_length">
  *     <li>Speed! The aim of Scroller for DataTables is to make rendering large data sets fast</li>
  *     <li>Full compatibility with deferred rendering in DataTables for maximum speed</li>
@@ -1146,7 +1146,7 @@ Scroller.defaults = {
 
 	/**
 	 * Show (or not) the loading element in the background of the table. Note that you should
-	 * header the dataTables.scroller.css file for this to be displayed correctly.
+	 * head the dataTables.scroller.css file for this to be displayed correctly.
 	 *  @type     boolean
 	 *  @default  false
 	 *  @static

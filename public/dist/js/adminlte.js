@@ -33,7 +33,7 @@
       CONTROL_SIDEBAR_CONTENT: '.control-sidebar-content',
       DATA_TOGGLE: '[data-widget="control-sidebar"]',
       CONTENT: '.content-wrapper',
-      HEADER: '.main-header',
+      HEADER: '.main-head',
       FOOTER: '.main-footer'
     };
     var ClassName = {
@@ -293,12 +293,12 @@
     var DATA_KEY = 'lte.layout';
     var JQUERY_NO_CONFLICT = $.fn[NAME];
     var Selector = {
-      HEADER: '.main-header',
+      HEADER: '.main-head',
       MAIN_SIDEBAR: '.main-sidebar',
       SIDEBAR: '.main-sidebar .sidebar',
       CONTENT: '.content-wrapper',
       BRAND: '.brand-link',
-      CONTENT_HEADER: '.content-header',
+      CONTENT_HEADER: '.content-head',
       WRAPPER: '.wrapper',
       CONTROL_SIDEBAR: '.control-sidebar',
       CONTROL_SIDEBAR_CONTENT: '.control-sidebar-content',
@@ -1151,7 +1151,7 @@
       DATA_COLLAPSE: '[data-card-widget="collapse"]',
       DATA_MAXIMIZE: '[data-card-widget="maximize"]',
       CARD: "." + ClassName.CARD,
-      CARD_HEADER: '.card-header',
+      CARD_HEADER: '.card-head',
       CARD_BODY: '.card-body',
       CARD_FOOTER: '.card-footer',
       COLLAPSED: "." + ClassName.COLLAPSED
@@ -1746,7 +1746,7 @@
           toast.data('delay', this._config.delay);
         }
 
-        var toast_header = $('<div class="toast-header">');
+        var toast_header = $('<div class="toast-head">');
 
         if (this._config.image != null) {
           var toast_image = $('<img />').addClass('rounded mr-2').attr('src', this._config.image).attr('alt', this._config.imageAlt);

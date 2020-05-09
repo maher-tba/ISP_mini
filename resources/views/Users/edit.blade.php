@@ -1,5 +1,10 @@
 @extends('layouts.admin_layout.admin_layout')
+@section('styles')
+    @parent
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="{{asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
 
+@endsection
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -104,4 +109,26 @@
         </div>
     </div>
 </div>
+@section('footer_js')
+
+    {{--#################### start pssword change  #####################--}}
+    <!-- page script -->
+    <script>
+        $(document).ready(function () {
+            //checkbox password check
+            $('#customCheckboxPassword').change(function() {
+                if ($(this).prop('checked')) {
+                    $('#password').prop('readonly', false);
+                    $('#password-confirm').prop('readonly', false);
+                }
+                else {
+                    $('#password').prop('readonly', true);
+                    $('#password-confirm').prop('readonly', true);
+                }
+            });
+        });
+    </script>
+    {{--#################### end  pssword change #####################--}}
+
+@endsection
 @endsection

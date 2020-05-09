@@ -13,11 +13,11 @@ $(function () {
   $('.connectedSortable').sortable({
     placeholder         : 'sort-highlight',
     connectWith         : '.connectedSortable',
-    handle              : '.card-header, .nav-tabs',
+    handle              : '.card-head, .nav-tabs',
     forcePlaceholderSize: true,
     zIndex              : 999999
   })
-  $('.connectedSortable .card-header, .connectedSortable .nav-tabs-custom').css('cursor', 'move')
+  $('.connectedSortable .card-head, .connectedSortable .nav-tabs-custom').css('cursor', 'move')
 
   // jQuery UI sortable for the todo list
   $('.todo-list').sortable({

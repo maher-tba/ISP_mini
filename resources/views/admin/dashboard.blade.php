@@ -3,7 +3,7 @@
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+    <!-- Content Header (Page head) -->
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -19,7 +19,7 @@
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
-    <!-- /.content-header -->
+    <!-- /.content-head -->
 
     <!-- Main content -->
     <section class="content">
@@ -107,7 +107,7 @@
                                     <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
                                 </li>
                             </ul>
-                        </div><!-- /.card-header -->
+                        </div><!-- /.card-head -->
                         <div class="card-body">
                             <div class="tab-content p-0">
                                 <!-- Morris chart - Sales -->
@@ -141,7 +141,7 @@
                                 </button>
                             </div>
                         </div>
-                        <!-- /.card-header -->
+                        <!-- /.card-head -->
                         <div class="card-body">
                             <!-- Conversations are loaded here -->
                             <div class="direct-chat-messages">
@@ -343,7 +343,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <!-- /.card-header -->
+                        <!-- /.card-head -->
                         <div class="card-body">
                             <ul class="todo-list" data-widget="todo-list">
                                 <li>
@@ -593,7 +593,7 @@
                             </div>
                             <!-- /. tools -->
                         </div>
-                        <!-- /.card-header -->
+                        <!-- /.card-head -->
                         <div class="card-body pt-0">
                             <!--The calendar -->
                             <div id="calendar" style="width: 100%"></div>

@@ -10,7 +10,7 @@ body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .main-fo
         margin-left: 0px;
     }
 }
-/*change header right inndent*/
+/*change head right inndent*/
 .layout-navbar-fixed .wrapper .main-header{
 right: 29px;
 }
@@ -134,7 +134,7 @@ table td[class*=col-], table th[class*=col-] {
 }
 /* end alert */
 
-/* start header navbar setting */
+/* start head navbar setting */
 .navbar-ml{
     margin-right: 24px;
 }
@@ -158,4 +158,4 @@ table td[class*=col-], table th[class*=col-] {
 }
 
 
-/* end header navbar setting */
+/* end head navbar setting */

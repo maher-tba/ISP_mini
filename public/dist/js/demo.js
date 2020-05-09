@@ -46,13 +46,13 @@
   var $no_border_checkbox = $('<input />', {
     type   : 'checkbox',
     value  : 1,
-    checked: $('.main-header').hasClass('border-bottom-0'),
+    checked: $('.main-head').hasClass('border-bottom-0'),
     'class': 'mr-1'
   }).on('click', function () {
     if ($(this).is(':checked')) {
-      $('.main-header').addClass('border-bottom-0')
+      $('.main-head').addClass('border-bottom-0')
     } else {
-      $('.main-header').removeClass('border-bottom-0')
+      $('.main-head').removeClass('border-bottom-0')
     }
   })
   var $no_border_container = $('<div />', {'class': 'mb-1'}).append($no_border_checkbox).append('<span>No Navbar border</span>')
@@ -76,13 +76,13 @@
   var $text_sm_header_checkbox = $('<input />', {
     type   : 'checkbox',
     value  : 1,
-    checked: $('.main-header').hasClass('text-sm'),
+    checked: $('.main-head').hasClass('text-sm'),
     'class': 'mr-1'
   }).on('click', function () {
     if ($(this).is(':checked')) {
-      $('.main-header').addClass('text-sm')
+      $('.main-head').addClass('text-sm')
     } else {
-      $('.main-header').removeClass('text-sm')
+      $('.main-head').removeClass('text-sm')
     }
   })
   var $text_sm_header_container = $('<div />', {'class': 'mb-1'}).append($text_sm_header_checkbox).append('<span>Navbar small text</span>')
@@ -216,7 +216,7 @@
   var navbar_all_colors       = navbar_dark_skins.concat(navbar_light_skins)
   var $navbar_variants_colors = createSkinBlock(navbar_all_colors, function (e) {
     var color = $(this).data('color')
-    var $main_header = $('.main-header')
+    var $main_header = $('.main-head')
     $main_header.removeClass('navbar-dark').removeClass('navbar-light')
     navbar_all_colors.map(function (color) {
       $main_header.removeClass(color)

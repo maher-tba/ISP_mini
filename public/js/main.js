@@ -19,19 +19,6 @@ $(function() {
 
 
 });
-$(document).ready(function () {
-    //checkbox password check
-    $('#customCheckboxPassword').change(function() {
-        if ($(this).prop('checked')) {
-            $('#password').prop('readonly', false);
-            $('#password-confirm').prop('readonly', false);
-        }
-        else {
-            $('#password').prop('readonly', true);
-            $('#password-confirm').prop('readonly', true);
-        }
-    });
-});
 
 
 

@@ -987,7 +987,7 @@ Docs & License: https://fullcalendar.io/
             _this.renderSkeleton = core.memoizeRendering(_this._renderSkeleton, _this._unrenderSkeleton);
             /* Header Render Methods
             ------------------------------------------------------------------------------------------------------------------*/
-            // Generates the HTML that will go before the day-of week header cells
+            // Generates the HTML that will go before the day-of week head cells
             _this.renderHeadIntroHtml = function () {
                 var _a = _this.context, theme = _a.theme, dateEnv = _a.dateEnv, options = _a.options;
                 var range = _this.props.dateProfile.renderRange;
@@ -1170,7 +1170,7 @@ Docs & License: https://fullcalendar.io/
                 this.scroller.setHeight(scrollerHeight);
                 scrollbarWidths = this.scroller.getScrollbarWidths();
                 if (scrollbarWidths.left || scrollbarWidths.right) { // using scrollbars?
-                    // make the all-day and header rows lines up
+                    // make the all-day and head rows lines up
                     noScrollRowEls.forEach(function (rowEl) {
                         core.compensateScroll(rowEl, scrollbarWidths);
                     });

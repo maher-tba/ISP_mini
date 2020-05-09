@@ -4,7 +4,7 @@
 
 /**
  * @summary     FixedHeader
- * @description Fix a table's header or footer, so it is always visible while
+ * @description Fix a table's head or footer, so it is always visible while
  *              scrolling
  * @version     3.1.6-dev
  * @file        dataTables.fixedHeader.js
@@ -175,7 +175,7 @@ $.extend( FixedHeader.prototype, {
 	},
 	
 	/**
-	 * Set header offset 
+	 * Set head offset 
 	 *
 	 * @param  {int} new value for headerOffset
 	 */
@@ -280,7 +280,7 @@ $.extend( FixedHeader.prototype, {
 	 * which is moved into a clone of the table element, and moved around the
 	 * document to give the fixed effect.
 	 *
-	 * @param  {string}  item  'header' or 'footer'
+	 * @param  {string}  item  'head' or 'footer'
 	 * @param  {boolean} force Force the clone to happen, or allow automatic
 	 *   decision (reuse existing if available)
 	 * @private
@@ -328,9 +328,9 @@ $.extend( FixedHeader.prototype, {
 	/**
 	 * Copy widths from the cells in one element to another. This is required
 	 * for the footer as the footer in the main table takes its sizes from the
-	 * header columns. That isn't present in the footer so to have it still
+	 * head columns. That isn't present in the footer so to have it still
 	 * align correctly, the sizes need to be copied over. It is also required
-	 * for the header when auto width is not enabled
+	 * for the head when auto width is not enabled
 	 *
 	 * @param  {jQuery} from Copy widths from
 	 * @param  {jQuery} to   Copy widths to
@@ -363,10 +363,10 @@ $.extend( FixedHeader.prototype, {
 	/**
 	 * Remove assigned widths from the cells in an element. This is required
 	 * when inserting the footer back into the main table so the size is defined
-	 * by the header columns and also when auto width is disabled in the
+	 * by the head columns and also when auto width is disabled in the
 	 * DataTable.
 	 *
-	 * @param  {string} item The `header` or `footer`
+	 * @param  {string} item The `head` or `footer`
 	 * @private
 	 */
 	_unsize: function ( item ) {
@@ -387,7 +387,7 @@ $.extend( FixedHeader.prototype, {
 	 * Reposition the floating elements to take account of horizontal page
 	 * scroll
 	 *
-	 * @param  {string} item       The `header` or `footer`
+	 * @param  {string} item       The `head` or `footer`
 	 * @param  {int}    scrollLeft Document scrollLeft
 	 * @private
 	 */
@@ -414,7 +414,7 @@ $.extend( FixedHeader.prototype, {
 	 * * `above` - (Footer only) Fixed to the top of the table body
 	 * 
 	 * @param  {string}  mode        Mode that the item should be shown in
-	 * @param  {string}  item        'header' or 'footer'
+	 * @param  {string}  item        'head' or 'footer'
 	 * @param  {boolean} forceChange Force a redraw of the mode, even if already
 	 *     in that mode.
 	 * @private
@@ -437,7 +437,7 @@ $.extend( FixedHeader.prototype, {
 		}
 
 		if ( mode === 'in-place' ) {
-			// Insert the header back into the table's real header
+			// Insert the head back into the table's real head
 			if ( itemDom.placeholder ) {
 				itemDom.placeholder.remove();
 				itemDom.placeholder = null;
@@ -458,7 +458,7 @@ $.extend( FixedHeader.prototype, {
 			}
 		}
 		else if ( mode === 'in' ) {
-			// Remove the header from the read header and insert into a fixed
+			// Remove the head from the read head and insert into a fixed
 			// positioned floating table clone
 			this._clone( item, forceChange );
 
@@ -472,8 +472,8 @@ $.extend( FixedHeader.prototype, {
 				itemDom.floating.css( 'top', '' );
 			}
 		}
-		else if ( mode === 'below' ) { // only used for the header
-			// Fix the position of the floating header at base of the table body
+		else if ( mode === 'below' ) { // only used for the head
+			// Fix the position of the floating head at base of the table body
 			this._clone( item, forceChange );
 
 			itemDom.floating
@@ -519,7 +519,7 @@ $.extend( FixedHeader.prototype, {
 		var dom = this.dom;
 		var tableNode = $(table.node());
 
-		// Need to use the header and footer that are in the main table,
+		// Need to use the head and footer that are in the main table,
 		// regardless of if they are clones, since they hold the positions we
 		// want to measure from
 		var thead = tableNode.children('thead');
