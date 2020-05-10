@@ -37,3 +37,11 @@ Route::middleware('can:users-manger')->group(function (){
     Route::post('registerUser','UsersController@registerUser')->name('registerUser');
 
 });
+
+
+############### Task Route #########################
+Route::middleware('can:users-manger')->group(function (){
+    Route::resource('tasks','TasksController')->except([
+        'show'
+    ]);
+});
