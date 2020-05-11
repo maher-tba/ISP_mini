@@ -917,7 +917,7 @@ $.extend( Responsive.prototype, {
 
 		inserted.insertBefore( dt.table().node() );
 
-		// The cloned head now contains the smallest that each column can be
+		// The cloned header now contains the smallest that each column can be
 		headerCells.each( function (i) {
 			var idx = dt.column.index( 'fromVisible', i );
 			columns[ idx ].minWidth =  this.offsetWidth || 0;

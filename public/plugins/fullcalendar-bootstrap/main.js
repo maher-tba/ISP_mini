@@ -56,7 +56,7 @@ Docs & License: https://fullcalendar.io/
         buttonActive: 'active',
         today: 'alert alert-info',
         popover: 'card card-primary',
-        popoverHeader: 'card-head',
+        popoverHeader: 'card-header',
         popoverContent: 'card-body',
         // day grid
         // for left/right border color when border is inset from edges (all-day in timeGrid view)

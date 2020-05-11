@@ -2967,7 +2967,7 @@
     if (!isRequired) {
       var _requesting = '`' + requestingName + '`';
       var requested = '`' + requestedName + '`';
-      console.warn(requested + ' modifier is required by ' + _requesting + ' modifier in order to work, be sure to head it before ' + _requesting + '!');
+      console.warn(requested + ' modifier is required by ' + _requesting + ' modifier in order to work, be sure to include it before ' + _requesting + '!');
     }
     return isRequired;
   }
@@ -4147,7 +4147,7 @@
       /**
        * Collection of utilities useful when writing custom modifiers.
        * Starting from version 1.7, this method is available only if you
-       * head `popper-utils.js` before `popper.js`.
+       * include `popper-utils.js` before `popper.js`.
        *
        * **DEPRECATION**: This way to access PopperUtils is deprecated
        * and will be removed in v2! Use the PopperUtils module directly instead.
@@ -6187,7 +6187,7 @@
     placement: 'right',
     trigger: 'click',
     content: '',
-    template: '<div class="popover" role="tooltip">' + '<div class="arrow"></div>' + '<h3 class="popover-head"></h3>' + '<div class="popover-body"></div></div>'
+    template: '<div class="popover" role="tooltip">' + '<div class="arrow"></div>' + '<h3 class="popover-header"></h3>' + '<div class="popover-body"></div></div>'
   });
 
   var DefaultType$5 = _objectSpread2({}, Tooltip.DefaultType, {
@@ -6199,7 +6199,7 @@
     SHOW: 'show'
   };
   var Selector$7 = {
-    TITLE: '.popover-head',
+    TITLE: '.popover-header',
     CONTENT: '.popover-body'
   };
   var Event$7 = {

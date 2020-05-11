@@ -778,10 +778,10 @@ module.exports = {
 	            // Count blocks ready
 	            var nBlocksReady = dataSigBytes / blockSizeBytes;
 	            if (doFlush) {
-	                // Round up to head partial blocks
+	                // Round up to include partial blocks
 	                nBlocksReady = Math.ceil(nBlocksReady);
 	            } else {
-	                // Round down to head only full blocks,
+	                // Round down to include only full blocks,
 	                // less the number of blocks that must remain in the buffer
 	                nBlocksReady = Math.max((nBlocksReady | 0) - this._minBufferSize, 0);
 	            }
@@ -12958,7 +12958,7 @@ function prependListener(emitter, event, fn) {
 
   // This is a hack to make sure that our error handler is attached before any
   // userland ones.  NEVER DO THIS. This is here only because this code needs
-  // to continue to work with older versions of Node.js that do not head
+  // to continue to work with older versions of Node.js that do not include
   // the prependListener() method. The goal is to eventually remove this hack.
   if (!emitter._events || !emitter._events[event]) emitter.on(event, fn);else if (isArray(emitter._events[event])) emitter._events[event].unshift(fn);else emitter._events[event] = [fn, emitter._events[event]];
 }
@@ -14435,7 +14435,7 @@ function zlibBufferSync(engine, buffer) {
 }
 
 // generic zlib
-// minimal 2-byte head
+// minimal 2-byte header
 function Deflate(opts) {
   if (!(this instanceof Deflate)) return new Deflate(opts);
   Zlib.call(this, opts, binding.DEFLATE);
@@ -14446,7 +14446,7 @@ function Inflate(opts) {
   Zlib.call(this, opts, binding.INFLATE);
 }
 
-// gzip - bigger head, same deflate compression
+// gzip - bigger header, same deflate compression
 function Gzip(opts) {
   if (!(this instanceof Gzip)) return new Gzip(opts);
   Zlib.call(this, opts, binding.GZIP);
@@ -14457,7 +14457,7 @@ function Gunzip(opts) {
   Zlib.call(this, opts, binding.GUNZIP);
 }
 
-// raw - no head
+// raw - no header
 function DeflateRaw(opts) {
   if (!(this instanceof DeflateRaw)) return new DeflateRaw(opts);
   Zlib.call(this, opts, binding.DEFLATERAW);
@@ -14468,7 +14468,7 @@ function InflateRaw(opts) {
   Zlib.call(this, opts, binding.INFLATERAW);
 }
 
-// auto-detect head.
+// auto-detect header.
 function Unzip(opts) {
   if (!(this instanceof Unzip)) return new Unzip(opts);
   Zlib.call(this, opts, binding.UNZIP);
@@ -19489,12 +19489,12 @@ function PdfPrinter(fontDescriptors) {
  *		'First paragraph',
  *		'Second paragraph, this time a little bit longer',
  *		{ text: 'Third paragraph, slightly bigger font size', fontSize: 20 },
- *		{ text: 'Another paragraph using a named style', style: 'head' },
+ *		{ text: 'Another paragraph using a named style', style: 'header' },
  *		{ text: ['playing with ', 'inlines' ] },
  *		{ text: ['and ', { text: 'restyling ', bold: true }, 'them'] },
  *	],
  *	styles: {
- *		head: { fontSize: 30, bold: true }
+ *		header: { fontSize: 30, bold: true }
  *	}
  * }
  *
@@ -25600,7 +25600,7 @@ var AcroFormMixin = {
    * nodes in a PDF form that are used to specify form name heirarchy and form
    * value defaults.
    * @param {string} name - field name (T attribute in field dictionary)
-   * @param {object} options  - other attributes to head in field dictionary
+   * @param {object} options  - other attributes to include in field dictionary
    */
   formField: function formField(name) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -25997,7 +25997,7 @@ var PDFDocument = /*#__PURE__*/function (_stream$Readable) {
 
     _this._id = PDFSecurity.generateFileID(_this.info); // Initialize security settings
 
-    _this._security = PDFSecurity.create(_assertThisInitialized(_this), options); // Write the head
+    _this._security = PDFSecurity.create(_assertThisInitialized(_this), options); // Write the header
     // PDF version
 
     _this._write("%PDF-".concat(_this.version)); // 4 binary chars, as recommended by the spec
@@ -28672,7 +28672,7 @@ function fill_window(s) {
  */
 function deflate_stored(s, flush) {
   /* Stored blocks are limited to 0xffff bytes, pending_buf is limited
-   * to pending_buf_size, and each stored block has a 5 byte head:
+   * to pending_buf_size, and each stored block has a 5 byte header:
    */
   var max_block_size = 0xffff;
 
@@ -29270,7 +29270,7 @@ function DeflateState() {
   this.pending_out = 0;       /* next pending byte to output to the stream */
   this.pending = 0;           /* nb of bytes in the pending buffer */
   this.wrap = 0;              /* bit 0 true for zlib, bit 1 true for gzip */
-  this.gzhead = null;         /* gzip head information to write */
+  this.gzhead = null;         /* gzip header information to write */
   this.gzindex = 0;           /* where in extra, name, or comment */
   this.method = Z_DEFLATED; /* can only be DEFLATED */
   this.last_flush = -1;   /* value of flush param for previous deflate call */
@@ -29582,7 +29582,7 @@ function deflateInit(strm, level) {
 
 function deflate(strm, flush) {
   var old_flush, s;
-  var beg, val; // for gzip head write only
+  var beg, val; // for gzip header write only
 
   if (!strm || !strm.state ||
     flush > Z_BLOCK || flush < 0) {
@@ -29601,10 +29601,10 @@ function deflate(strm, flush) {
   old_flush = s.last_flush;
   s.last_flush = flush;
 
-  /* Write the head */
+  /* Write the header */
   if (s.status === INIT_STATE) {
 
-    if (s.wrap === 2) { // GZIP head
+    if (s.wrap === 2) { // GZIP header
       strm.adler = 0;  //crc32(0L, Z_NULL, 0);
       put_byte(s, 31);
       put_byte(s, 139);
@@ -29647,7 +29647,7 @@ function deflate(strm, flush) {
         s.status = EXTRA_STATE;
       }
     }
-    else // DEFLATE head
+    else // DEFLATE header
     {
       var header = (Z_DEFLATED + ((s.w_bits - 8) << 4)) << 8;
       var level_flags = -1;
@@ -30542,7 +30542,7 @@ function tr_static_init() {
     n++;
     bl_count[8]++;
   }
-  /* Codes 286 and 287 do not exist, but we must head them in the
+  /* Codes 286 and 287 do not exist, but we must include them in the
    * tree construction to get a canonical Huffman tree (longest code
    * all ones)
    */
@@ -30603,7 +30603,7 @@ function copy_block(s, buf, len, header)
 //DeflateState *s;
 //charf    *buf;    /* the input data */
 //unsigned len;     /* its length */
-//int      head;  /* true if block head must be written */
+//int      header;  /* true if block header must be written */
 {
   bi_windup(s);        /* align on byte boundary */
 
@@ -30983,7 +30983,7 @@ function build_bl_tree(s) {
       break;
     }
   }
-  /* Update opt_len to head the bit length tree and counts */
+  /* Update opt_len to include the bit length tree and counts */
   s.opt_len += 3 * (max_blindex + 1) + 5 + 5 + 4;
   //Tracev((stderr, "\ndyn trees: dyn %ld, stat %ld",
   //        s->opt_len, s->static_len));
@@ -30993,7 +30993,7 @@ function build_bl_tree(s) {
 
 
 /* ===========================================================================
- * Send the head for a block using dynamic Huffman trees: the counts, the
+ * Send the header for a block using dynamic Huffman trees: the counts, the
  * lengths of the bit length codes, the literal tree and the distance tree.
  * IN assertion: lcodes >= 257, dcodes >= 1, blcodes >= 4.
  */
@@ -31105,7 +31105,7 @@ function _tr_stored_block(s, buf, stored_len, last)
 //int last;         /* one if this is the last block for a file */
 {
   send_bits(s, (STORED_BLOCK << 1) + (last ? 1 : 0), 3);    /* send block type */
-  copy_block(s, buf, stored_len, true); /* with head */
+  copy_block(s, buf, stored_len, true); /* with header */
 }
 
 
@@ -31386,7 +31386,7 @@ var Z_DEFLATED  = 8;
 /* ===========================================================================*/
 
 
-var    HEAD = 1;       /* i: waiting for magic head */
+var    HEAD = 1;       /* i: waiting for magic header */
 var    FLAGS = 2;      /* i: waiting for method and flags (gzip) */
 var    TIME = 3;       /* i: waiting for modification time (gzip) */
 var    OS = 4;         /* i: waiting for extra flags and operating system (gzip) */
@@ -31394,7 +31394,7 @@ var    EXLEN = 5;      /* i: waiting for extra length (gzip) */
 var    EXTRA = 6;      /* i: waiting for extra bytes (gzip) */
 var    NAME = 7;       /* i: waiting for end of file name (gzip) */
 var    COMMENT = 8;    /* i: waiting for end of comment (gzip) */
-var    HCRC = 9;       /* i: waiting for head crc (gzip) */
+var    HCRC = 9;       /* i: waiting for header crc (gzip) */
 var    DICTID = 10;    /* i: waiting for dictionary check value */
 var    DICT = 11;      /* waiting for inflateSetDictionary() call */
 var        TYPE = 12;      /* i: waiting for type bits, including last-flag bit */
@@ -31445,12 +31445,12 @@ function InflateState() {
   this.last = false;          /* true if processing last block */
   this.wrap = 0;              /* bit 0 true for zlib, bit 1 true for gzip */
   this.havedict = false;      /* true if dictionary provided */
-  this.flags = 0;             /* gzip head method and flags (0 if zlib) */
-  this.dmax = 0;              /* zlib head max distance (INFLATE_STRICT) */
+  this.flags = 0;             /* gzip header method and flags (0 if zlib) */
+  this.dmax = 0;              /* zlib header max distance (INFLATE_STRICT) */
   this.check = 0;             /* protected copy of check value */
   this.total = 0;             /* protected copy of output count */
   // TODO: may be {}
-  this.head = null;           /* where to save gzip head information */
+  this.head = null;           /* where to save gzip header information */
 
   /* sliding window */
   this.wbits = 0;             /* log base 2 of requested window size */
@@ -31718,7 +31718,7 @@ function inflate(strm, flush) {
   var last_bits, last_op, last_val; // paked "last" denormalized (JS specific)
   var len;                    /* length to copy for repeats, bits to drop */
   var ret;                    /* return code */
-  var hbuf = new utils.Buf8(4);    /* buffer for gzip head crc calculation */
+  var hbuf = new utils.Buf8(4);    /* buffer for gzip header crc calculation */
   var opts;
 
   var n; // temporary var for NEED_BITS
@@ -31767,7 +31767,7 @@ function inflate(strm, flush) {
           bits += 8;
         }
         //===//
-        if ((state.wrap & 2) && hold === 0x8b1f) {  /* gzip head */
+        if ((state.wrap & 2) && hold === 0x8b1f) {  /* gzip header */
           state.check = 0/*crc32(0L, Z_NULL, 0)*/;
           //=== CRC2(state.check, hold);
           hbuf[0] = hold & 0xff;
@@ -31782,13 +31782,13 @@ function inflate(strm, flush) {
           state.mode = FLAGS;
           break;
         }
-        state.flags = 0;           /* expect zlib head */
+        state.flags = 0;           /* expect zlib header */
         if (state.head) {
           state.head.done = false;
         }
-        if (!(state.wrap & 1) ||   /* check if zlib head allowed */
+        if (!(state.wrap & 1) ||   /* check if zlib header allowed */
           (((hold & 0xff)/*BITS(8)*/ << 8) + (hold >> 8)) % 31) {
-          strm.msg = 'incorrect head check';
+          strm.msg = 'incorrect header check';
           state.mode = BAD;
           break;
         }
@@ -31811,7 +31811,7 @@ function inflate(strm, flush) {
           break;
         }
         state.dmax = 1 << len;
-        //Tracev((stderr, "inflate:   zlib head ok\n"));
+        //Tracev((stderr, "inflate:   zlib header ok\n"));
         strm.adler = state.check = 1/*adler32(0L, Z_NULL, 0)*/;
         state.mode = hold & 0x200 ? DICTID : TYPE;
         //=== INITBITS();
@@ -31835,7 +31835,7 @@ function inflate(strm, flush) {
           break;
         }
         if (state.flags & 0xe000) {
-          strm.msg = 'unknown head flags set';
+          strm.msg = 'unknown header flags set';
           state.mode = BAD;
           break;
         }
@@ -32038,7 +32038,7 @@ function inflate(strm, flush) {
           }
           //===//
           if (hold !== (state.check & 0xffff)) {
-            strm.msg = 'head crc mismatch';
+            strm.msg = 'header crc mismatch';
             state.mode = BAD;
             break;
           }
@@ -32814,7 +32814,7 @@ function inflateGetHeader(strm, head) {
   state = strm.state;
   if ((state.wrap & 2) === 0) { return Z_STREAM_ERROR; }
 
-  /* save head structure */
+  /* save header structure */
   state.head = head;
   head.done = false;
   return Z_OK;
@@ -32951,7 +32951,7 @@ module.exports = function inflate_fast(strm, start) {
   var beg;                    /* inflate()'s initial strm.output */
   var end;                    /* while out < end, enough space available */
 //#ifdef INFLATE_STRICT
-  var dmax;                   /* maximum distance from zlib head */
+  var dmax;                   /* maximum distance from zlib header */
 //#endif
   var wsize;                  /* window size or zero if not using window */
   var whave;                  /* valid bytes in the window */
@@ -37161,7 +37161,7 @@ var cmap = new r.Struct({
   tables: new r.Array(CmapEntry, 'numSubtables')
 });
 
-// font head
+// font header
 var head = new r.Struct({
   version: r.int32, // 0x00010000 (version 1.0)
   revision: r.int32, // set by font manufacturer
@@ -37182,7 +37182,7 @@ var head = new r.Struct({
   glyphDataFormat: r.int16 // 0 for current format
 });
 
-// horizontal head
+// horizontal header
 var hhea = new r.Struct({
   version: r.int32,
   ascent: r.int16, // Distance from baseline of highest ascender
@@ -48143,7 +48143,7 @@ var Glyph = (_class$8 = function () {
   return Glyph;
 }(), (_applyDecoratedDescriptor$4(_class$8.prototype, 'cbox', [cache], _Object$getOwnPropertyDescriptor(_class$8.prototype, 'cbox'), _class$8.prototype), _applyDecoratedDescriptor$4(_class$8.prototype, 'bbox', [cache], _Object$getOwnPropertyDescriptor(_class$8.prototype, 'bbox'), _class$8.prototype), _applyDecoratedDescriptor$4(_class$8.prototype, 'path', [cache], _Object$getOwnPropertyDescriptor(_class$8.prototype, 'path'), _class$8.prototype), _applyDecoratedDescriptor$4(_class$8.prototype, 'advanceWidth', [cache], _Object$getOwnPropertyDescriptor(_class$8.prototype, 'advanceWidth'), _class$8.prototype), _applyDecoratedDescriptor$4(_class$8.prototype, 'advanceHeight', [cache], _Object$getOwnPropertyDescriptor(_class$8.prototype, 'advanceHeight'), _class$8.prototype), _applyDecoratedDescriptor$4(_class$8.prototype, 'name', [cache], _Object$getOwnPropertyDescriptor(_class$8.prototype, 'name'), _class$8.prototype)), _class$8);
 
-// The head for both simple and composite glyphs
+// The header for both simple and composite glyphs
 var GlyfHeader = new r.Struct({
   numberOfContours: r.int16, // if negative, this is a composite glyph
   xMin: r.int16,
@@ -48215,7 +48215,7 @@ var TTFGlyph = function (_Glyph) {
     return _possibleConstructorReturn(this, _Glyph.apply(this, arguments));
   }
 
-  // Parses just the glyph head and returns the bounding box
+  // Parses just the glyph header and returns the bounding box
   TTFGlyph.prototype._getCBox = function _getCBox(internal) {
     // We need to decode the glyph if variation processing is requested,
     // so it's easier just to recompute the path's cbox after decoding.
@@ -49911,7 +49911,7 @@ var Subset = function () {
     this.glyphs = [];
     this.mapping = {};
 
-    // always head the missing glyph
+    // always include the missing glyph
     this.includeGlyph(0);
   }
 
@@ -50143,7 +50143,7 @@ var TTFSubset = function (_Subset) {
 
     var buffer = stream.readBuffer(nextOffset - curOffset);
 
-    // if it is a compound glyph, head its components
+    // if it is a compound glyph, include its components
     if (glyf && glyf.numberOfContours < 0) {
       buffer = new Buffer(buffer);
       for (var _iterator = glyf.components, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _getIterator(_iterator);;) {
@@ -50199,7 +50199,7 @@ var TTFSubset = function (_Subset) {
       bearings: []
     };
 
-    // head all the glyphs
+    // include all the glyphs
     // not using a for loop because we need to support adding more
     // glyphs to the array as we go, and CoffeeScript caches the length.
     var i = 0;
@@ -51219,7 +51219,7 @@ var WOFFFont = function (_TTFFont) {
       this.stream.pos = table.offset;
 
       if (table.compLength < table.length) {
-        this.stream.pos += 2; // skip deflate head
+        this.stream.pos += 2; // skip deflate header
         var outBuffer = new Buffer(table.length);
         var buf = inflate(this.stream.readBuffer(table.compLength - 2), outBuffer);
         return new r.DecodeStream(buf);
@@ -54531,7 +54531,7 @@ module.exports = {
     //    many unicode code points moved from PUA to Supplementary plane (U+2XXXX) over the years.
     //    Plus, it has 4 combining sequences.
     //    Seems that Mozilla refused to support it for 10 yrs. https://bugzilla.mozilla.org/show_bug.cgi?id=162431 https://bugzilla.mozilla.org/show_bug.cgi?id=310299
-    //    because big5-hkscs is the only encoding to head astral characters in non-algorithmic way.
+    //    because big5-hkscs is the only encoding to include astral characters in non-algorithmic way.
     //    Implementations are not consistent within browsers; sometimes labeled as just big5.
     //    MS Internet Explorer switches from big5 to big5-hkscs when a patch applied.
     //    Great discussion & recap of what's going on https://bugzilla.mozilla.org/show_bug.cgi?id=912470#c31
@@ -60581,7 +60581,7 @@ module.exports = /*#__PURE__*/function () {
   function PNG(data) {
     var i;
     this.data = data;
-    this.pos = 8; // Skip the default head
+    this.pos = 8; // Skip the default header
 
     this.palette = [];
     this.imgData = [];
@@ -63350,7 +63350,7 @@ var augumenteccs = function (poly, nblocks, genpoly) {
 
 // auguments BCH(p+q,q) code to the polynomial over GF(2), given the proper
 // genpoly. the both input and output are in binary numbers, and unlike
-// calculateecc genpoly should head the 1 bit for the highest degree.
+// calculateecc genpoly should include the 1 bit for the highest degree.
 //
 // actual polynomials used for this procedure are as follows:
 // - p=10, q=5, genpoly=x^10+x^8+x^5+x^4+x^2+x+1 (JIS X 0510:2004 Appendix C)

@@ -621,7 +621,7 @@ var DayTile = /** @class */ (function (_super) {
         var title = dateEnv.format(date, createFormatter(options.dayPopoverFormat) // TODO: cache
         );
         this.el.innerHTML =
-            '<div class="fc-head ' + theme.getClass('popoverHeader') + '">' +
+            '<div class="fc-header ' + theme.getClass('popoverHeader') + '">' +
                 '<span class="fc-title">' +
                 htmlEscape(title) +
                 '</span>' +
@@ -1197,7 +1197,7 @@ var DayGrid = /** @class */ (function (_super) {
         var topEl; // the element we want to match the top coordinate of
         var options;
         if (this.rowCnt === 1) {
-            topEl = view.el; // will cause the popover to cover any sort of head
+            topEl = view.el; // will cause the popover to cover any sort of header
         }
         else {
             topEl = this.rowEls[row]; // will align with top of row
@@ -1294,7 +1294,7 @@ var AbstractDayGridView = /** @class */ (function (_super) {
         _this.renderSkeleton = memoizeRendering(_this._renderSkeleton, _this._unrenderSkeleton);
         /* Header Rendering
         ------------------------------------------------------------------------------------------------------------------*/
-        // Generates the HTML that will go before the day-of week head cells
+        // Generates the HTML that will go before the day-of week header cells
         _this.renderHeadIntroHtml = function () {
             var _a = _this.context, theme = _a.theme, options = _a.options;
             if (_this.colWeekNumbersVisible) {

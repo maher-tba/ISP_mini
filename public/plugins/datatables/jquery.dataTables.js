@@ -1232,7 +1232,7 @@
 			
 				/*
 				 * Final init
-				 * Cache the head, body and footer as required, creating them if needed
+				 * Cache the header, body and footer as required, creating them if needed
 				 */
 			
 				// Work around for Webkit bug 83867 - store the caption-side before removing from doc
@@ -1907,7 +1907,7 @@
 			browser.barWidth = outer[0].offsetWidth - outer[0].clientWidth;
 	
 			// IE6/7 will oversize a width 100% element inside a scrolling element, to
-			// head the width of the scrollbar, while other browsers ensure the inner
+			// include the width of the scrollbar, while other browsers ensure the inner
 			// element is contained without forcing scrolling
 			browser.bScrollOversize = inner[0].offsetWidth === 100 && outer[0].clientWidth !== 100;
 	
@@ -3192,7 +3192,7 @@
 	
 	
 	/**
-	 * Create the HTML head for the table
+	 * Create the HTML header for the table
 	 *  @param {object} oSettings dataTables settings object
 	 *  @memberof DataTable#oApi
 	 */
@@ -3270,7 +3270,7 @@
 	
 	
 	/**
-	 * Draw the head (or footer) element based on the column visibility states. The
+	 * Draw the header (or footer) element based on the column visibility states. The
 	 * methodology here is to use the layout array from _fnDetectHeader, modified for
 	 * the instantaneous column visibility, to construct the new layout. The grid is
 	 * traversed over cell at a time in a rows x columns grid fashion, although each
@@ -3279,7 +3279,7 @@
 	 * already a cell in that position.
 	 *  @param {object} oSettings dataTables settings object
 	 *  @param array {objects} aoSource Layout array from _fnDetectHeader
-	 *  @param {boolean} [bIncludeHidden=false] If true then head the hidden columns in the calc,
+	 *  @param {boolean} [bIncludeHidden=false] If true then include the hidden columns in the calc,
 	 *  @memberof DataTable#oApi
 	 */
 	function _fnDrawHead( oSettings, aoSource, bIncludeHidden )
@@ -3707,12 +3707,12 @@
 	
 	
 	/**
-	 * Use the DOM source to create up an array of head cells. The idea here is to
+	 * Use the DOM source to create up an array of header cells. The idea here is to
 	 * create a layout grid (array) of rows x columns, which contains a reference
 	 * to the cell that that point in the grid (regardless of col/rowspan), such that
 	 * any column / row could be removed and the new grid constructed
 	 *  @param array {object} aLayout Array to store the calculated layout in
-	 *  @param {node} nThead The head/footer element for the table
+	 *  @param {node} nThead The header/footer element for the table
 	 *  @memberof DataTable#oApi
 	 */
 	function _fnDetectHeader ( aLayout, nThead )
@@ -4704,7 +4704,7 @@
 		/* Show the display HTML options */
 		_fnAddOptionsHtml( settings );
 	
-		/* Build and draw the head / footer for the table */
+		/* Build and draw the header / footer for the table */
 		_fnBuildHead( settings );
 		_fnDrawHead( settings, settings.aoHeader );
 		_fnDrawHead( settings, settings.aoFooter );
@@ -5182,7 +5182,7 @@
 	
 	
 	/**
-	 * Update the head, footer and body tables for resizing - i.e. column
+	 * Update the header, footer and body tables for resizing - i.e. column
 	 * alignment.
 	 *
 	 * Welcome to the most horrible function DataTables. The process that this
@@ -5266,9 +5266,9 @@
 			footerSrcEls = footerCopy.find('tr');
 		}
 	
-		// Clone the current head and footer elements and then place it into the inner table
+		// Clone the current header and footer elements and then place it into the inner table
 		headerCopy = header.clone().prependTo( table );
-		headerTrgEls = header.find('tr'); // original head is in its own table
+		headerTrgEls = header.find('tr'); // original header is in its own table
 		headerSrcEls = headerCopy.find('tr');
 		headerCopy.find('th, td').removeAttr('tabindex');
 	
@@ -5278,8 +5278,8 @@
 		 */
 	
 		// Remove old sizing and apply the calculated column widths
-		// Get the unique column headers in the newly created (cloned) head. We want to apply the
-		// calculated sizes to this head
+		// Get the unique column headers in the newly created (cloned) header. We want to apply the
+		// calculated sizes to this header
 		if ( ! scrollX )
 		{
 			divBodyStyle.width = '100%';
@@ -5303,7 +5303,7 @@
 			// No x scrolling
 			tableStyle.width = "100%";
 	
-			// IE7 will make the width of the table when 100% head the scrollbar
+			// IE7 will make the width of the table when 100% include the scrollbar
 			// - which is shouldn't. When there is a scrollbar we need to take this
 			// into account.
 			if ( ie67 && (table.find('tbody').height() > divBodyEl.offsetHeight ||
@@ -5323,7 +5323,7 @@
 			sanityWidth = table.outerWidth();
 		}
 	
-		// Hidden head should have zero height, so remove padding and borders. Then
+		// Hidden header should have zero height, so remove padding and borders. Then
 		// set the width based on the real headers
 	
 		// Apply all styles in one pass
@@ -5337,7 +5337,7 @@
 	
 		// Apply all widths in final pass
 		_fnApplyToChildren( function(nToSize, i) {
-			// Only apply widths to the DataTables detected head cells - this
+			// Only apply widths to the DataTables detected header cells - this
 			// prevents complex headers from having contradictory sizes applied
 			if ( $.inArray( nToSize, dtHeaderCells ) !== -1 ) {
 				nToSize.style.width = headerWidths[i];
@@ -5368,8 +5368,8 @@
 		 * 3. Apply the measurements
 		 */
 	
-		// "Hide" the head and footer that we used for the sizing. We need to keep
-		// the content of the cell so that the width applied to the head and body
+		// "Hide" the header and footer that we used for the sizing. We need to keep
+		// the content of the cell so that the width applied to the header and body
 		// both match, but we want to hide it completely. We want to also fix their
 		// width to what they currently are
 		_fnApplyToChildren( function(nSizer, i) {
@@ -5438,12 +5438,12 @@
 			}
 		}
 	
-		/* Finally set the width's of the head and footer tables */
+		/* Finally set the width's of the header and footer tables */
 		var iOuterWidth = table.outerWidth();
 		divHeaderTable[0].style.width = _fnStringToCss( iOuterWidth );
 		divHeaderInnerStyle.width = _fnStringToCss( iOuterWidth );
 	
-		// Figure out if there are scrollbar present - if so then we need a the head and footer to
+		// Figure out if there are scrollbar present - if so then we need a the header and footer to
 		// provide a bit more space to allow "overflow" scrolling (i.e. past the scrollbar)
 		var bScrolling = table.height() > divBodyEl.clientHeight || divBody.css('overflow-y') == "scroll";
 		var padding = 'padding' + (browser.bScrollbarLeft ? 'Left' : 'Right' );
@@ -5458,7 +5458,7 @@
 		// Correct DOM ordering for colgroup - comes before the thead
 		table.children('colgroup').insertBefore( table.children('thead') );
 	
-		/* Adjust the position of the head in case we loose the y-scrollbar */
+		/* Adjust the position of the header in case we loose the y-scrollbar */
 		divBody.trigger('scroll');
 	
 		// If sorting or filtering has occurred, jump the scrolling back to the top
@@ -5583,9 +5583,9 @@
 			tmpTable.find('tbody tr').remove();
 			var tr = $('<tr/>').appendTo( tmpTable.find('tbody') );
 	
-			// Clone the table head and footer - we can't use the head / footer
+			// Clone the table header and footer - we can't use the header / footer
 			// from the cloned table, since if scrolling is active, the table's
-			// real head and footer are contained in different table tags
+			// real header and footer are contained in different table tags
 			tmpTable.find('thead, tfoot').remove();
 			tmpTable
 				.append( $(oSettings.nTHead).clone() )
@@ -5594,7 +5594,7 @@
 			// Remove any assigned widths from the footer (from scrolling)
 			tmpTable.find('tfoot th, tfoot td').css('width', '');
 	
-			// Apply custom sizing to the cloned head
+			// Apply custom sizing to the cloned header
 			headerCells = _fnGetUniqueThs( oSettings, tmpTable.find('thead')[0] );
 	
 			for ( i=0 ; i<visibleColumns.length ; i++ ) {
@@ -5681,7 +5681,7 @@
 			// know the inner width (so it can be assigned to the other table's
 			// cells) and the outer width so we can calculate the full width of the
 			// table. This is safe since DataTables requires a unique cell for each
-			// column, but if ever a head can span multiple columns, this will
+			// column, but if ever a header can span multiple columns, this will
 			// need to be modified.
 			var total = 0;
 			for ( i=0 ; i<visibleColumns.length ; i++ ) {
@@ -7413,7 +7413,7 @@
 	} );
 	
 	
-	_api_registerPlural( 'tables().head()', 'table().head()' , function () {
+	_api_registerPlural( 'tables().header()', 'table().header()' , function () {
 		return this.iterator( 'table', function ( ctx ) {
 			return ctx.nTHead;
 		}, 1 );
@@ -8423,7 +8423,7 @@
 	 * "{integer}:visIdx"  - visible column index (i.e. translate to column index)  (>=0 count from left, <0 count from right)
 	 * "{integer}:visible" - alias for {integer}:visIdx  (>=0 count from left, <0 count from right)
 	 * "{string}:name"     - column name
-	 * "{string}"          - jQuery selector on column head nodes
+	 * "{string}"          - jQuery selector on column header nodes
 	 *
 	 */
 	
@@ -8607,7 +8607,7 @@
 		return inst;
 	} );
 	
-	_api_registerPlural( 'columns().head()', 'column().head()', function ( selector, opts ) {
+	_api_registerPlural( 'columns().header()', 'column().header()', function ( selector, opts ) {
 		return this.iterator( 'column', function ( settings, column ) {
 			return settings.aoColumns[column].nTh;
 		}, 1 );
@@ -8655,7 +8655,7 @@
 		// Group the column visibility changes
 		if ( vis !== undefined ) {
 			this.iterator( 'table', function ( settings ) {
-				// Redraw the head after changes
+				// Redraw the header after changes
 				_fnDrawHead( settings, settings.aoHeader );
 				_fnDrawHead( settings, settings.aoFooter );
 		
@@ -9793,7 +9793,7 @@
 		"mRender": null,
 	
 		/**
-		 * Unique head TH/TD element for this column - this is what the sorting
+		 * Unique header TH/TD element for this column - this is what the sorting
 		 * listener is attached to (if sorting is enabled.)
 		 *  @type node
 		 *  @default null
@@ -9854,14 +9854,14 @@
 		"sSortDataType": 'std',
 	
 		/**
-		 * Class to be applied to the head element when sorting on this column
+		 * Class to be applied to the header element when sorting on this column
 		 *  @type string
 		 *  @default null
 		 */
 		"sSortingClass": null,
 	
 		/**
-		 * Class to be applied to the head element when sorting on this column -
+		 * Class to be applied to the header element when sorting on this column -
 		 * when jQuery UI theming is used.
 		 *  @type string
 		 *  @default null
@@ -10778,10 +10778,10 @@
 	
 		/**
 		 * This function is called on every 'draw' event, and allows you to
-		 * dynamically modify the head row. This can be used to calculate and
+		 * dynamically modify the header row. This can be used to calculate and
 		 * display useful information about the table.
 		 *  @type function
-		 *  @param {node} head "TR" element for the head
+		 *  @param {node} head "TR" element for the header
 		 *  @param {array} data Full table data (as derived from the original HTML)
 		 *  @param {int} start Index for the current display starting point in the
 		 *    display array
@@ -11295,7 +11295,7 @@
 				/**
 				 * ARIA label that is added to the table headers when the column may be
 				 * sorted ascending by activing the column (click or return when focused).
-				 * Note that the column head is prefixed to this string.
+				 * Note that the column header is prefixed to this string.
 				 *  @type string
 				 *  @default : activate to sort column ascending
 				 *
@@ -11318,7 +11318,7 @@
 				/**
 				 * ARIA label that is added to the table headers when the column may be
 				 * sorted descending by activing the column (click or return when focused).
-				 * Note that the column head is prefixed to this string.
+				 * Note that the column header is prefixed to this string.
 				 *  @type string
 				 *  @default : activate to sort column ascending
 				 *
@@ -11876,8 +11876,8 @@
 		 *     </li>
 		 *     <li>The following constants are allowed:
 		 *       <ul>
-		 *         <li>'H' - jQueryUI theme "head" classes ('fg-toolbar ui-widget-head ui-corner-tl ui-corner-tr ui-helper-clearfix')</li>
-		 *         <li>'F' - jQueryUI theme "footer" classes ('fg-toolbar ui-widget-head ui-corner-bl ui-corner-br ui-helper-clearfix')</li>
+		 *         <li>'H' - jQueryUI theme "header" classes ('fg-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix')</li>
+		 *         <li>'F' - jQueryUI theme "footer" classes ('fg-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix')</li>
 		 *       </ul>
 		 *     </li>
 		 *     <li>The following syntax is expected:
@@ -12611,7 +12611,7 @@
 		/**
 		 * Change the cell type created for the column - either TD cells or TH cells. This
 		 * can be useful as TH cells have semantic meaning in the table body, allowing them
-		 * to act as a head for a row (you may wish to add scope='row' to the TH elements).
+		 * to act as a header for a row (you may wish to add scope='row' to the TH elements).
 		 *  @type string
 		 *  @default td
 		 *
@@ -13249,7 +13249,7 @@
 		"aoColumns": [],
 	
 		/**
-		 * Store information about the table's head
+		 * Store information about the table's header
 		 *  @type array
 		 *  @default []
 		 */
@@ -13336,7 +13336,7 @@
 		"aoRowCallback": [],
 	
 		/**
-		 * Callback functions for the head on each draw.
+		 * Callback functions for the header on each draw.
 		 *  @type array
 		 *  @default []
 		 */
@@ -13724,7 +13724,7 @@
 		"bSorted": false,
 	
 		/**
-		 * Indicate that if multiple rows are in the head and there is more than
+		 * Indicate that if multiple rows are in the header and there is more than
 		 * one unique cell per column, if the top one (true) or bottom one (false)
 		 * should be used for sorting / title by DataTables.
 		 * Note that this parameter will be set by the initialisation routine. To

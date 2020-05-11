@@ -95,8 +95,8 @@
 
         heading: true,
         headerRowRenderer: null,
-        headerRowClass: "jsgrid-head-row",
-        headerCellClass: "jsgrid-head-cell",
+        headerRowClass: "jsgrid-header-row",
+        headerCellClass: "jsgrid-header-cell",
 
         filtering: false,
         filterRowRenderer: null,
@@ -120,9 +120,9 @@
         cellClass: "jsgrid-cell",
 
         sorting: false,
-        sortableClass: "jsgrid-head-sortable",
-        sortAscClass: "jsgrid-head-sort jsgrid-head-sort-asc",
-        sortDescClass: "jsgrid-head-sort jsgrid-head-sort-desc",
+        sortableClass: "jsgrid-header-sortable",
+        sortAscClass: "jsgrid-header-sort jsgrid-header-sort-asc",
+        sortDescClass: "jsgrid-header-sort jsgrid-header-sort-desc",
 
         paging: false,
         pagerContainer: null,
@@ -186,7 +186,7 @@
 
         containerClass: "jsgrid",
         tableClass: "jsgrid-table",
-        gridHeaderClass: "jsgrid-grid-head",
+        gridHeaderClass: "jsgrid-grid-header",
         gridBodyClass: "jsgrid-grid-body",
 
         _init: function(config) {
@@ -428,7 +428,7 @@
                 .append($insertRow);
 
             var $header = this._header = $("<div>").addClass(this.gridHeaderClass)
-                .addClass(this._scrollBarWidth() ? "jsgrid-head-scrollbar" : "")
+                .addClass(this._scrollBarWidth() ? "jsgrid-header-scrollbar" : "")
                 .append($headerGrid);
 
             return $header;
