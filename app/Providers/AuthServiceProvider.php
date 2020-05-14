@@ -26,10 +26,13 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         #################### start Can Gate Middleware Roles ##################
-
         Gate::define('users-manger',function ($user){
-            if($user->hasAnyRoles(['admin','user']))
+            if($user->hasAnyRoles(['admin','author','user']))
                 return true;
+        });
+
+        Gate::define('users-access',function ($user){
+            return $user->hasRole('admin');
         });
 
         Gate::define('users-delete',function ($user){
@@ -41,9 +44,12 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('users-edit',function ($user){
-            return $user->hasRole(['admin','user']);
+            return $user->hasRole(['admin','author']);
         });
 
+        Gate::define('users-update',function ($user){
+            return $user->hasRole(['admin','author']);
+        });
         #################### end Can Gate Middleware Roles ##################
 
     }

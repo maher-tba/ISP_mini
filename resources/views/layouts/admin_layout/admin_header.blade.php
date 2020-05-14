@@ -73,6 +73,9 @@
                                 <a class="dropdown-item" href="{{url('/users')}}">
                                     قائمة المستخدمين
                                 </a>
+                                <a class="dropdown-item" href="{{url('/tasks')}}">
+                                    قائمة المهمات
+                                </a>
                                 @endcan
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf

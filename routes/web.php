@@ -11,10 +11,13 @@
 |
 */
 
+use RealRashid\SweetAlert\Facades\Alert;
+
 Route::get('/sendMessage', 'TelegramController@notifyUser')->name('notify');
 
 ################## Dashboard Route ######################
 Route::get('/', function () {
+    alert()->html('<i>HTML</i> <u>example</u>'," You can use <b>bold text</b>, <a href='//github.com'>links</a> and other HTML tags ",'error');
     return view('welcome');
 })->middleware('auth');
 
@@ -38,10 +41,10 @@ Route::middleware('can:users-manger')->group(function (){
 
 });
 
-
 ############### Task Route #########################
 Route::middleware('can:users-manger')->group(function (){
     Route::resource('tasks','TasksController')->except([
-        'show'
+        'update'
     ]);
 });
+

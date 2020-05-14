@@ -36,7 +36,8 @@
 {{--   #################### end Auth when login ####################--}}
 
     <main class="py-4">
-        @include('partial.alerts')
+{{--        @include('partial.alerts')--}}
+        @include('sweetalert::alert')
         @yield('content')
     </main>
 </div>

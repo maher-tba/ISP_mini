@@ -55,10 +55,9 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer clearfix">
-                        <button type="button" class="btn btn-info float-right"><i class="fas fa-plus"></i> Add item</button>
-                        <button type="button" class="btn btn-default toastsDefaultBottomLeft">
-                            Launch Default Toast (bottomLeft)
-                        </button>
+
+                        <button type="button" class="btn btn-secondary  float-right" data-toggle="modal" data-target="#modal-secondary">
+                            <i class="fas fa-plus"></i> اضافة مهمة</button>
 
                     </div>
                 </div>
@@ -67,84 +66,46 @@
         </div>
     </div>
 </div>
-{{--#################### start toasts Container Bottom Left #####################--}}
-<div id="toastsContainerBottomLeft" class="toasts-bottom-left fixed">
+{{--############################# START model add task ########################--}}
+<form method="POST" action="{{route('tasks.store')}}">
+    @csrf
+    <div class="modal fade" id="modal-secondary">
+        <div class="modal-dialog">
+            <div class="modal-content bg-secondary">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="name">انشاء مهمة</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body" id="description">
 
-</div>
-{{--#################### end toasts Container Bottom Left #####################--}}
+                    <div class="form-group row">
+                        <div class="col-sm-10 ">
+                            <input type="text" class="form-control text-right" name="name" id="name" placeholder="نوع المهمة">
+                        </div>
+                        <label for="inputEmail3"  class="col-sm-2 col-form-label">نوع المهمة</label>
+                    </div>
 
-{{--#################### start model #####################--}}
 
-<div class="modal fade" id="modal-default">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Default Modal</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control text-right"name="description" id="description" placeholder="الوصف">
+                        </div>
+                        <label for="description" class="col-sm-2 col-form-label">الوصف</label>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">اغلاق</button>
+                    <button type="submit" class="btn btn-outline-light">حفظ</button>
+                </div>
             </div>
-            <div class="modal-body">
-                <p>One fine body&hellip;</p>
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-content -->
+        <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
+    <!-- /.modal -->
+</form>
 
+{{--############################# END model add task ########################--}}
 
-{{--#################### end model #####################--}}
-
-
-@section('footer_js')
-
-    {{--#################### start datatable JavaScript search #####################--}}
-    <!-- page script -->
-    <!-- jQuery -->
-    <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
-    <!-- Bootstrap 4 -->
-    <script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-    <!-- SweetAlert2 -->
-    <script src="{{asset('plugins/sweetalert2/sweetalert2.min.js')}}"></script>
-    <!-- Toastr -->
-    <script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{asset('dist/js/adminlte.min.js')}}"></script>
-    <!-- AdminLTE for demo purposes --
-    <script src="{{asset('dist/js/demo.js')}}"></script>
-
-    <script type="text/javascript">
-        $(function() {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000
-            });
-
-
-            $('.toastsDefaultBottomLeft').click(function() {
-                $(document).Toasts('create', {
-                    title: 'Toast Title',
-                    position: 'bottomLeft',
-                    body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.',
-                    image: '../../dist/img/user3-128x128.jpg',
-                    imageAlt: 'User Picture'
-                })
-            });
-
-
-
-        });
-
-    </script>
-    {{--#################### end datatable JavaScript search #####################--}}
-
-@endsection
 @endsection
