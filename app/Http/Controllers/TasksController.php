@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Task;
+
 use http\Env\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class TasksController extends Controller
@@ -16,8 +18,19 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
-        return view('tasks.index',compact('tasks'));
+//        return csrf_token();
+        return  Task::all();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Task  $task
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Task $task)
+    {
+        return Task::findOrFail($task);
     }
 
     /**
@@ -38,22 +51,19 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-        ]);
-        Alert::toast('Success Task', 'تم انشاء مهمة بنجاح');
+        $validate = Validator::make($request->all(),$this->rules());
+        if($validate->fails())
+            return \response()->json(['errors'=>$validate->errors()]);
+        else
+            Task::create($request->all());
+        return ['test' => 'tasks store'];
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Task  $task
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Task $task)
-    {
-
+    public function rules(){
+        return [
+            'name' => 'required',
+            'description' => 'required'
+        ];
     }
 
     /**
@@ -64,7 +74,7 @@ class TasksController extends Controller
      */
     public function edit($id)
     {
-
+        //
     }
 
     /**
@@ -76,8 +86,9 @@ class TasksController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-
+        //validate name
+        Task::where('id',$id)->update($request->all());
+        return ['test' => 'tasks updated'];
     }
 
     /**
@@ -88,6 +99,7 @@ class TasksController extends Controller
      */
     public function destroy(Task $task)
     {
-
+        Task::where('id',$task->id)->delete();
+        return ['test' => 'deleted'];
     }
 }

@@ -30,7 +30,6 @@ Auth::routes(['register' => false]);
 Route::get('/errors/403', function () {
     return view('errors.403');
 });
-
 ############### User Route #########################
 Route::middleware('can:users-manger')->group(function (){
     Route::resource('users','UsersController')->except([
@@ -42,9 +41,9 @@ Route::middleware('can:users-manger')->group(function (){
 });
 
 ############### Task Route #########################
-Route::middleware('can:users-manger')->group(function (){
-    Route::resource('tasks','TasksController')->except([
-        'update'
-    ]);
-});
+//Route::middleware('can:users-manger')->group(function (){
+//    Route::resource('tasks','TasksController')->except([
+//        'update'
+//    ]);
+//});
 
